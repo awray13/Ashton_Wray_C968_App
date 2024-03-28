@@ -1,4 +1,4 @@
-﻿namespace TCWinFormsDemo
+﻿namespace Ashton_Wray_C968
 {
     partial class ModifyPartForm
     {

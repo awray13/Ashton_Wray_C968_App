@@ -1,4 +1,4 @@
-﻿namespace TCWinFormsDemo
+﻿namespace Ashton_Wray_C968
 {
     partial class MainForm
     {
@@ -190,7 +190,7 @@
             // 
             // partBindingSource
             // 
-            this.partBindingSource.DataSource = typeof(TCWinFormsDemo.Part);
+            this.partBindingSource.DataSource = typeof(Part);
             // 
             // productLabel
             // 
@@ -264,19 +264,19 @@
             // 
             // productBindingSouce
             // 
-            this.productBindingSouce.DataSource = typeof(TCWinFormsDemo.Product);
+            this.productBindingSouce.DataSource = typeof(Product);
             // 
             // inventoryBindingSource
             // 
-            this.inventoryBindingSource.DataSource = typeof(TCWinFormsDemo.Inventory);
+            this.inventoryBindingSource.DataSource = typeof(Inventory);
             // 
             // inHouseBindingSource
             // 
-            this.inHouseBindingSource.DataSource = typeof(TCWinFormsDemo.InHouse);
+            this.inHouseBindingSource.DataSource = typeof(InHouse);
             // 
             // outsourcedBindingSource
             // 
-            this.outsourcedBindingSource.DataSource = typeof(TCWinFormsDemo.Outsourced);
+            this.outsourcedBindingSource.DataSource = typeof(Outsourced);
             // 
             // MainForm
             // 

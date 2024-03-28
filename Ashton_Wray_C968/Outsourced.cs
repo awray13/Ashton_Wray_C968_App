@@ -1,4 +1,4 @@
-﻿namespace TCWinFormsDemo
+﻿namespace Ashton_Wray_C968
 {
     // Outsourced class inherits from Part
     public class Outsourced : Part

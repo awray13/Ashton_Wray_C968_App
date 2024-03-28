@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace TCWinFormsDemo
+namespace Ashton_Wray_C968
 {
     public partial class AddPartForm : Form
     {

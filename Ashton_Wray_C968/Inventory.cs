@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace TCWinFormsDemo
+namespace Ashton_Wray_C968
 {
     public class Inventory
     {

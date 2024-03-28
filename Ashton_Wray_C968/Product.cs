@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace TCWinFormsDemo
+namespace Ashton_Wray_C968
 {
     // Product class
     public class Product
