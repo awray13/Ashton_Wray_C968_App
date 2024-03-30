@@ -2,9 +2,9 @@
 
 namespace Ashton_Wray_C968
 {
-    public partial class ModifyProduct : Form
+    public partial class ModifyProductForm : Form
     {
-        public ModifyProduct()
+        public ModifyProductForm()
         {
             InitializeComponent();
         }

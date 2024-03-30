@@ -15,10 +15,19 @@ namespace Ashton_Wray_C968
             // Populate the main form with sample data
             Inventory.PopulateInventory();
 
-            // Populate the part grid view using BindingSource
+            DataGridViewSelectionMode Row = DataGridViewSelectionMode.FullRowSelect;
+
+            // Populate the part grid view with sample data using BindingSource
             var partBindingSource = new BindingSource();
             partBindingSource.DataSource = Inventory.AllParts;
             partGridView.DataSource = partBindingSource;
+            partGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Populate the product grid view with sample data using BindingSource
+            var productBindingSource = new BindingSource();
+            productBindingSource.DataSource = Inventory.Products;
+            productGridView.DataSource = productBindingSource;
+            productGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
         }
 
@@ -85,46 +94,51 @@ namespace Ashton_Wray_C968
         // Search part button click event
         private void SearchPartButton_Click(object sender, System.EventArgs e)
         {
-            // Check if the search box is empty
-            partGridView.ClearSelection();
-            if (string.IsNullOrWhiteSpace(searchPartButton.Text) && partGridView.Rows.Count > 0)
+            // Code to search for a part in partGridView
+            if (partSearchTextBox.Text != "")
             {
-                foreach (DataGridViewRow row in partGridView.Rows)
+                bool found = false;
+                for (int i = 0; i < partGridView.Rows.Count; i++)
                 {
-                    // Select the first row if the search box is empty
-                    if (row.Cells[0].Value.ToString().Contains(searchPartButton.Text) || row.Cells[1].Value.ToString().Contains(searchPartButton.Text))
+                    partGridView.Rows[i].Selected = false;
+                    for (int j = 0; j < partGridView.Columns.Count; j++)
                     {
-                        partGridView.CurrentCell = row.Cells[0];
-                        row.Selected = true;
+                        if (partGridView.Rows[i].Cells[j].Value != null && partGridView.Rows[i].Cells[j].Value
+                                .ToString().ToLower().Contains(partSearchTextBox.Text.ToLower()))
+                        {
+                            partGridView.Rows[i].Selected = true;
+                            found = true;
+                            break;
+                        }
                     }
-
-                    if (row.Selected)
-                    {
-                        break;
-                    }
-
                 }
 
-                if (partGridView.SelectedRows.Count == 0)
+                if (!found)
                 {
                     MessageBox.Show("ERROR: Part not found!");
                 }
             }
-
-
-
+            else
+            {
+                MessageBox.Show("ERROR: Please enter a part to search!");
+            }
         }
 
         // Add product button click event
         private void AddProductButton_Click(object sender, System.EventArgs e)
         {
+            // Open the Add Product Form
+            AddProductForm addProductForm = new AddProductForm();
+            addProductForm.ShowDialog();
 
         }
 
         // Modify product button click event
         private void ModifyProductButton_Click(object sender, System.EventArgs e)
         {
-
+            // Open the Modify Product Form
+            ModifyProductForm modifyProductForm = new ModifyProductForm();
+            modifyProductForm.ShowDialog();
         }
 
         // Delete product button click event
@@ -134,8 +148,36 @@ namespace Ashton_Wray_C968
         }
 
         // Search product button click event
-        private void ProductSearchButton_Click(object sender, System.EventArgs e)
+        private void SearchProductButton_Click(object sender, System.EventArgs e)
         {
+            // Code to search for a product in productGridView
+            if (productSearchTextBox.Text != "")
+            {
+                bool found = false;
+                for (int i = 0; i < productGridView.Rows.Count; i++)
+                {
+                    productGridView.Rows[i].Selected = false;
+                    for (int j = 0; j < productGridView.Columns.Count; j++)
+                    {
+                        if (productGridView.Rows[i].Cells[j].Value != null && productGridView.Rows[i].Cells[j].Value
+                                .ToString().ToLower().Contains(productSearchTextBox.Text.ToLower()))
+                        {
+                            productGridView.Rows[i].Selected = true;
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!found)
+                {
+                    MessageBox.Show("ERROR: Product not found!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("ERROR: Please enter a product to search!");
+            }
 
         }
 
@@ -145,5 +187,7 @@ namespace Ashton_Wray_C968
             // Close the main form
             this.Close();
         }
+
+
     }
 }

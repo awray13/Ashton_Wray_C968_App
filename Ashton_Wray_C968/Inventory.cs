@@ -56,8 +56,8 @@ namespace Ashton_Wray_C968
             // Add sample products
             Product product1 = new Product();
             product1.ProductId = 1;
-            product1.ProductName = "Product 1";
-            product1.ProductPrice = 100.00M;
+            product1.ProductName = "Yellow Scooter";
+            product1.ProductPrice = 1000.00M;
             product1.ProductInStock = 5;
             product1.ProductMin = 1;
             product1.ProductMax = 10;
@@ -67,8 +67,8 @@ namespace Ashton_Wray_C968
 
             Product product2 = new Product();
             product2.ProductId = 2;
-            product2.ProductName = "Product 2";
-            product2.ProductPrice = 200.00M;
+            product2.ProductName = "Green Scooter";
+            product2.ProductPrice = 2000.00M;
             product2.ProductInStock = 10;
             product2.ProductMin = 1;
             product2.ProductMax = 20;
@@ -78,14 +78,25 @@ namespace Ashton_Wray_C968
 
             Product product3 = new Product();
             product3.ProductId = 3;
-            product3.ProductName = "Product 3";
-            product3.ProductPrice = 300.00M;
+            product3.ProductName = "Red Scooter";
+            product3.ProductPrice = 3000.00M;
             product3.ProductInStock = 15;
             product3.ProductMin = 1;
             product3.ProductMax = 30;
             product3.AssociatedParts.Add(part1);
             product3.AssociatedParts.Add(part2);
             Products.Add(product3);
+
+            Product product4 = new Product();
+            product4.ProductId = 4;
+            product4.ProductName = "Blue Scooter";
+            product4.ProductPrice = 4000.00M;
+            product4.ProductInStock = 20;
+            product4.ProductMin = 1;
+            product4.ProductMax = 40;
+            product4.AssociatedParts.Add(part3);
+            product4.AssociatedParts.Add(part4);
+            Products.Add(product4);
         }
 
         // Adds a product to the inventory
