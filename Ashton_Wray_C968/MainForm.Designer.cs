@@ -45,6 +45,13 @@
             this.modifyProductButton = new System.Windows.Forms.Button();
             this.deleteProductButton = new System.Windows.Forms.Button();
             this.exitMainFormButton = new System.Windows.Forms.Button();
+            this.productIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productInStockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productMinDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productMaxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productBindingSouce = new System.Windows.Forms.BindingSource(this.components);
             this.partIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.partNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.partPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,14 +59,13 @@
             this.partMinDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.partMaxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.partBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.productBindingSouce = new System.Windows.Forms.BindingSource(this.components);
             this.inventoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.inHouseBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.outsourcedBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.partGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.partBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSouce)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.partBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inHouseBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outsourcedBindingSource)).BeginInit();
@@ -91,6 +97,7 @@
             this.partGridView.Location = new System.Drawing.Point(31, 94);
             this.partGridView.Margin = new System.Windows.Forms.Padding(2);
             this.partGridView.Name = "partGridView";
+            this.partGridView.RowHeadersVisible = false;
             this.partGridView.RowTemplate.Height = 24;
             this.partGridView.Size = new System.Drawing.Size(471, 210);
             this.partGridView.TabIndex = 1;
@@ -181,15 +188,29 @@
             // 
             // productGridView
             // 
+            this.productGridView.AllowUserToAddRows = false;
+            this.productGridView.AllowUserToDeleteRows = false;
+            this.productGridView.AutoGenerateColumns = false;
+            this.productGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.productGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.productGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.productIdDataGridViewTextBoxColumn,
+            this.productNameDataGridViewTextBoxColumn,
+            this.productInStockDataGridViewTextBoxColumn,
+            this.productPriceDataGridViewTextBoxColumn,
+            this.productMinDataGridViewTextBoxColumn,
+            this.productMaxDataGridViewTextBoxColumn});
+            this.productGridView.DataSource = this.productBindingSouce;
             this.productGridView.Location = new System.Drawing.Point(551, 94);
             this.productGridView.Name = "productGridView";
+            this.productGridView.RowHeadersVisible = false;
+            this.productGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.productGridView.Size = new System.Drawing.Size(471, 210);
             this.productGridView.TabIndex = 11;
             // 
             // addProductButton
             // 
-            this.addProductButton.Location = new System.Drawing.Point(825, 310);
+            this.addProductButton.Location = new System.Drawing.Point(842, 310);
             this.addProductButton.Name = "addProductButton";
             this.addProductButton.Size = new System.Drawing.Size(56, 22);
             this.addProductButton.TabIndex = 12;
@@ -199,7 +220,7 @@
             // 
             // modifyProductButton
             // 
-            this.modifyProductButton.Location = new System.Drawing.Point(886, 310);
+            this.modifyProductButton.Location = new System.Drawing.Point(904, 310);
             this.modifyProductButton.Name = "modifyProductButton";
             this.modifyProductButton.Size = new System.Drawing.Size(56, 22);
             this.modifyProductButton.TabIndex = 13;
@@ -209,7 +230,7 @@
             // 
             // deleteProductButton
             // 
-            this.deleteProductButton.Location = new System.Drawing.Point(946, 310);
+            this.deleteProductButton.Location = new System.Drawing.Point(966, 310);
             this.deleteProductButton.Name = "deleteProductButton";
             this.deleteProductButton.Size = new System.Drawing.Size(56, 22);
             this.deleteProductButton.TabIndex = 14;
@@ -219,13 +240,65 @@
             // 
             // exitMainFormButton
             // 
-            this.exitMainFormButton.Location = new System.Drawing.Point(946, 333);
+            this.exitMainFormButton.Location = new System.Drawing.Point(966, 338);
             this.exitMainFormButton.Name = "exitMainFormButton";
             this.exitMainFormButton.Size = new System.Drawing.Size(56, 22);
             this.exitMainFormButton.TabIndex = 15;
             this.exitMainFormButton.Text = "Exit";
             this.exitMainFormButton.UseVisualStyleBackColor = true;
             this.exitMainFormButton.Click += new System.EventHandler(this.ExitMainFormButton_Click);
+            // 
+            // productIdDataGridViewTextBoxColumn
+            // 
+            this.productIdDataGridViewTextBoxColumn.DataPropertyName = "ProductId";
+            this.productIdDataGridViewTextBoxColumn.FillWeight = 116.3551F;
+            this.productIdDataGridViewTextBoxColumn.HeaderText = "Product ID";
+            this.productIdDataGridViewTextBoxColumn.Name = "productIdDataGridViewTextBoxColumn";
+            this.productIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productNameDataGridViewTextBoxColumn
+            // 
+            this.productNameDataGridViewTextBoxColumn.DataPropertyName = "ProductName";
+            this.productNameDataGridViewTextBoxColumn.FillWeight = 87.64936F;
+            this.productNameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.productNameDataGridViewTextBoxColumn.Name = "productNameDataGridViewTextBoxColumn";
+            this.productNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productInStockDataGridViewTextBoxColumn
+            // 
+            this.productInStockDataGridViewTextBoxColumn.DataPropertyName = "ProductInStock";
+            this.productInStockDataGridViewTextBoxColumn.FillWeight = 120.6002F;
+            this.productInStockDataGridViewTextBoxColumn.HeaderText = "Inventory";
+            this.productInStockDataGridViewTextBoxColumn.Name = "productInStockDataGridViewTextBoxColumn";
+            this.productInStockDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productPriceDataGridViewTextBoxColumn
+            // 
+            this.productPriceDataGridViewTextBoxColumn.DataPropertyName = "ProductPrice";
+            this.productPriceDataGridViewTextBoxColumn.FillWeight = 91.6093F;
+            this.productPriceDataGridViewTextBoxColumn.HeaderText = "Price";
+            this.productPriceDataGridViewTextBoxColumn.Name = "productPriceDataGridViewTextBoxColumn";
+            this.productPriceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productMinDataGridViewTextBoxColumn
+            // 
+            this.productMinDataGridViewTextBoxColumn.DataPropertyName = "ProductMin";
+            this.productMinDataGridViewTextBoxColumn.FillWeight = 85.8799F;
+            this.productMinDataGridViewTextBoxColumn.HeaderText = "Min";
+            this.productMinDataGridViewTextBoxColumn.Name = "productMinDataGridViewTextBoxColumn";
+            this.productMinDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productMaxDataGridViewTextBoxColumn
+            // 
+            this.productMaxDataGridViewTextBoxColumn.DataPropertyName = "ProductMax";
+            this.productMaxDataGridViewTextBoxColumn.FillWeight = 97.90602F;
+            this.productMaxDataGridViewTextBoxColumn.HeaderText = "Max";
+            this.productMaxDataGridViewTextBoxColumn.Name = "productMaxDataGridViewTextBoxColumn";
+            this.productMaxDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productBindingSouce
+            // 
+            this.productBindingSouce.DataSource = typeof(Ashton_Wray_C968.Product);
             // 
             // partIdDataGridViewTextBoxColumn
             // 
@@ -267,10 +340,6 @@
             // 
             this.partBindingSource.DataSource = typeof(Ashton_Wray_C968.Part);
             // 
-            // productBindingSouce
-            // 
-            this.productBindingSouce.DataSource = typeof(Ashton_Wray_C968.Product);
-            // 
             // inventoryBindingSource
             // 
             this.inventoryBindingSource.DataSource = typeof(Ashton_Wray_C968.Inventory);
@@ -308,8 +377,8 @@
             this.Text = "Main Form";
             ((System.ComponentModel.ISupportInitialize)(this.partGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.partBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSouce)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.partBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inHouseBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outsourcedBindingSource)).EndInit();
@@ -347,6 +416,12 @@
         private System.Windows.Forms.BindingSource inventoryBindingSource;
         private System.Windows.Forms.BindingSource inHouseBindingSource;
         private System.Windows.Forms.BindingSource outsourcedBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productInStockDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productPriceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productMinDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productMaxDataGridViewTextBoxColumn;
     }
 }
 
