@@ -48,7 +48,7 @@ namespace Ashton_Wray_C968
                 newInHousePart.MachineId = Convert.ToInt32(addPartMacIdCompNameTextBox.Text);
 
                 // Add the new InHouse object to the AllParts BindingList and close the AddPartForm
-                Inventory.AllParts.Add(newInHousePart);
+                Inventory.AddPart(newInHousePart);
                 this.Close();
             }
             // else if Outsourced radio button is selected
@@ -79,7 +79,7 @@ namespace Ashton_Wray_C968
                 newOutsourcedPart.CompanyName = addPartMacIdCompNameTextBox.Text;
 
                 // Add the new Outsourced object to the AllParts BindingList and close the AddPartForm
-                Inventory.AllParts.Add(newOutsourcedPart);
+                Inventory.AddPart(newOutsourcedPart);
                 this.Close();
             }
         }

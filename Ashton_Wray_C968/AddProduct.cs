@@ -90,8 +90,9 @@ namespace Ashton_Wray_C968
                     newProduct.ProductMin = int.Parse(addProductMinTextBox.Text);
                     newProduct.ProductMax = int.Parse(addProductMaxTextBox.Text);
 
-                    foreach (Part part in addProductAssociatedPartsGridView.DataSource as BindingList<Part>)
+                    foreach (DataGridViewRow row in addProductAssociatedPartsGridView.Rows)
                     {
+                        Part part = (Part)row.DataBoundItem;
                         newProduct.AddAssociatedPart(part);
                     }
 
@@ -139,20 +140,18 @@ namespace Ashton_Wray_C968
             addProductIdTextBox.Text = Inventory.CalculateProductId().ToString();
 
             // Create a new BindingList of Candidate Parts
-            var candidatePartLoad = new BindingList<Part>();
-
-            // Load all Candidate Parts into the candidatePartLoad BindingList
-            foreach (Part part in Inventory.AllParts)
-            {
-                candidatePartLoad.Add(part);
-            }
-
-            // Set the DataSource of the addProductCandidateGridView to the candidatePartLoad BindingList
+            var candidatePartLoad = new BindingSource();
+            candidatePartLoad.DataSource = Inventory.AllParts;
             addProductCandidateGridView.DataSource = candidatePartLoad;
+            addProductCandidateGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
 
 
             // Create a new BindingList of Associated Parts
-            var associatedPartLoad = new BindingList<Part>();
+            var associatedPartLoad = new BindingSource();
+            associatedPartLoad.DataSource = product.AssociatedParts;
+            addProductAssociatedPartsGridView.DataSource = associatedPartLoad;
+            addProductAssociatedPartsGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             // Load all Associated Parts into the associatedPartLoad BindingList
             foreach (Part part in product.AssociatedParts)
