@@ -18,31 +18,31 @@
             set { _partId = value; }
         }
 
-        public string PartName
+        public string Name
         {
             get { return _partName; }
             set { _partName = value; }
         }
 
-        public decimal PartPrice
+        public decimal Price
         {
             get { return _partPrice; }
             set { _partPrice = value; }
         }
 
-        public int PartInStock
+        public int Inventory
         {
             get { return _partInStock; }
             set { _partInStock = value; }
         }
 
-        public int PartMin
+        public int Min
         {
             get { return _partMin; }
             set { _partMin = value; }
         }
 
-        public int PartMax
+        public int Max
         {
             get { return _partMax; }
             set { _partMax = value; }

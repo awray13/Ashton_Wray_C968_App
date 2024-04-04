@@ -189,7 +189,6 @@
             // productGridView
             // 
             this.productGridView.AllowUserToAddRows = false;
-            this.productGridView.AllowUserToDeleteRows = false;
             this.productGridView.AutoGenerateColumns = false;
             this.productGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.productGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -204,7 +203,6 @@
             this.productGridView.Location = new System.Drawing.Point(551, 94);
             this.productGridView.Name = "productGridView";
             this.productGridView.RowHeadersVisible = false;
-            this.productGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.productGridView.Size = new System.Drawing.Size(471, 210);
             this.productGridView.TabIndex = 11;
             // 
@@ -308,31 +306,31 @@
             // 
             // partNameDataGridViewTextBoxColumn
             // 
-            this.partNameDataGridViewTextBoxColumn.DataPropertyName = "PartName";
+            this.partNameDataGridViewTextBoxColumn.DataPropertyName = "Name";
             this.partNameDataGridViewTextBoxColumn.HeaderText = "Name";
             this.partNameDataGridViewTextBoxColumn.Name = "partNameDataGridViewTextBoxColumn";
             // 
             // partPriceDataGridViewTextBoxColumn
             // 
-            this.partPriceDataGridViewTextBoxColumn.DataPropertyName = "PartPrice";
+            this.partPriceDataGridViewTextBoxColumn.DataPropertyName = "Price";
             this.partPriceDataGridViewTextBoxColumn.HeaderText = "Price";
             this.partPriceDataGridViewTextBoxColumn.Name = "partPriceDataGridViewTextBoxColumn";
             // 
             // partInStockDataGridViewTextBoxColumn
             // 
-            this.partInStockDataGridViewTextBoxColumn.DataPropertyName = "PartInStock";
+            this.partInStockDataGridViewTextBoxColumn.DataPropertyName = "Inventory";
             this.partInStockDataGridViewTextBoxColumn.HeaderText = "Inventory";
             this.partInStockDataGridViewTextBoxColumn.Name = "partInStockDataGridViewTextBoxColumn";
             // 
             // partMinDataGridViewTextBoxColumn
             // 
-            this.partMinDataGridViewTextBoxColumn.DataPropertyName = "PartMin";
+            this.partMinDataGridViewTextBoxColumn.DataPropertyName = "Min";
             this.partMinDataGridViewTextBoxColumn.HeaderText = "Min";
             this.partMinDataGridViewTextBoxColumn.Name = "partMinDataGridViewTextBoxColumn";
             // 
             // partMaxDataGridViewTextBoxColumn
             // 
-            this.partMaxDataGridViewTextBoxColumn.DataPropertyName = "PartMax";
+            this.partMaxDataGridViewTextBoxColumn.DataPropertyName = "Max";
             this.partMaxDataGridViewTextBoxColumn.HeaderText = "Max";
             this.partMaxDataGridViewTextBoxColumn.Name = "partMaxDataGridViewTextBoxColumn";
             // 

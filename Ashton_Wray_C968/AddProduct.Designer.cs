@@ -86,17 +86,25 @@
             // 
             this.addProductCandidateGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.addProductCandidateGridView.Location = new System.Drawing.Point(288, 70);
+            this.addProductCandidateGridView.MultiSelect = false;
             this.addProductCandidateGridView.Name = "addProductCandidateGridView";
+            this.addProductCandidateGridView.ReadOnly = true;
+            this.addProductCandidateGridView.RowHeadersVisible = false;
             this.addProductCandidateGridView.Size = new System.Drawing.Size(500, 162);
             this.addProductCandidateGridView.TabIndex = 3;
+            this.addProductCandidateGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AddProductCandidateGridView_CellContentClick);
             // 
             // addProductAssociatedPartsGridView
             // 
             this.addProductAssociatedPartsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.addProductAssociatedPartsGridView.Location = new System.Drawing.Point(288, 277);
+            this.addProductAssociatedPartsGridView.MultiSelect = false;
             this.addProductAssociatedPartsGridView.Name = "addProductAssociatedPartsGridView";
+            this.addProductAssociatedPartsGridView.ReadOnly = true;
+            this.addProductAssociatedPartsGridView.RowHeadersVisible = false;
             this.addProductAssociatedPartsGridView.Size = new System.Drawing.Size(500, 162);
             this.addProductAssociatedPartsGridView.TabIndex = 4;
+            this.addProductAssociatedPartsGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AddProductAssociatedPartsGridView_CellContentClick);
             // 
             // addProductIdLabel
             // 
@@ -146,6 +154,7 @@
             this.addProductInventoryTextBox.Name = "addProductInventoryTextBox";
             this.addProductInventoryTextBox.Size = new System.Drawing.Size(118, 20);
             this.addProductInventoryTextBox.TabIndex = 10;
+            this.addProductInventoryTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddProductInventoryTextBox_KeyPress);
             // 
             // addProductPriceLabel
             // 
@@ -162,6 +171,7 @@
             this.addProductPriceTextBox.Name = "addProductPriceTextBox";
             this.addProductPriceTextBox.Size = new System.Drawing.Size(118, 20);
             this.addProductPriceTextBox.TabIndex = 12;
+            this.addProductPriceTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddProductPriceTextBox_KeyPress);
             // 
             // addProductMaxLabel
             // 
@@ -187,6 +197,7 @@
             this.addProductMaxTextBox.Name = "addProductMaxTextBox";
             this.addProductMaxTextBox.Size = new System.Drawing.Size(41, 20);
             this.addProductMaxTextBox.TabIndex = 15;
+            this.addProductMaxTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddProductMaxTextBox_KeyPress);
             // 
             // addProductMinTextBox
             // 
@@ -194,6 +205,7 @@
             this.addProductMinTextBox.Name = "addProductMinTextBox";
             this.addProductMinTextBox.Size = new System.Drawing.Size(41, 20);
             this.addProductMinTextBox.TabIndex = 16;
+            this.addProductMinTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddProductMinTextBox_KeyPress);
             // 
             // addProductSearchButton
             // 
@@ -203,6 +215,7 @@
             this.addProductSearchButton.TabIndex = 17;
             this.addProductSearchButton.Text = "Search";
             this.addProductSearchButton.UseVisualStyleBackColor = true;
+            this.addProductSearchButton.Click += new System.EventHandler(this.AddProductSearchButton_Click);
             // 
             // addProductSearchTextBox
             // 
@@ -219,6 +232,7 @@
             this.addAssociatedPartButton.TabIndex = 19;
             this.addAssociatedPartButton.Text = "Add";
             this.addAssociatedPartButton.UseVisualStyleBackColor = true;
+            this.addAssociatedPartButton.Click += new System.EventHandler(this.AddAssociatedPartButton_Click);
             // 
             // deleteAssociatedPartButton
             // 
@@ -228,6 +242,7 @@
             this.deleteAssociatedPartButton.TabIndex = 20;
             this.deleteAssociatedPartButton.Text = "Delete";
             this.deleteAssociatedPartButton.UseVisualStyleBackColor = true;
+            this.deleteAssociatedPartButton.Click += new System.EventHandler(this.DeleteAssociatedPartButton_Click);
             // 
             // addProductCancelButton
             // 
@@ -237,6 +252,7 @@
             this.addProductCancelButton.TabIndex = 21;
             this.addProductCancelButton.Text = "Cancel";
             this.addProductCancelButton.UseVisualStyleBackColor = true;
+            this.addProductCancelButton.Click += new System.EventHandler(this.AddProductCancelButton_Click);
             // 
             // addProductSaveButton
             // 
@@ -246,6 +262,7 @@
             this.addProductSaveButton.TabIndex = 22;
             this.addProductSaveButton.Text = "Save";
             this.addProductSaveButton.UseVisualStyleBackColor = true;
+            this.addProductSaveButton.Click += new System.EventHandler(this.AddProductSaveButton_Click);
             // 
             // AddProductForm
             // 
@@ -277,6 +294,7 @@
             this.Controls.Add(this.addProductFormLabel);
             this.Name = "AddProductForm";
             this.Text = "Add Product Form";
+            this.Load += new System.EventHandler(this.AddProductForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.addProductCandidateGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.addProductAssociatedPartsGridView)).EndInit();
             this.ResumeLayout(false);

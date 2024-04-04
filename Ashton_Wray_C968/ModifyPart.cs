@@ -38,11 +38,11 @@ namespace Ashton_Wray_C968
 
             // Set text box values to the InHouse part attributes
             modPartIdTextBox.Text = inHousePart.PartId.ToString();
-            modPartNameTextBox.Text = inHousePart.PartName;
-            modPartInventoryTextBox.Text = inHousePart.PartInStock.ToString();
-            modPartPriceTextBox.Text = inHousePart.PartPrice.ToString();
-            modPartMinTextBox.Text = inHousePart.PartMin.ToString();
-            modPartMaxTextBox.Text = inHousePart.PartMax.ToString();
+            modPartNameTextBox.Text = inHousePart.Name;
+            modPartInventoryTextBox.Text = inHousePart.Inventory.ToString();
+            modPartPriceTextBox.Text = inHousePart.Price.ToString();
+            modPartMinTextBox.Text = inHousePart.Min.ToString();
+            modPartMaxTextBox.Text = inHousePart.Max.ToString();
             modPartMacIdCompNameTextBox.Text = inHousePart.MachineId.ToString();
             modPartInHouseRadioButton.Checked = true;
         }
@@ -64,11 +64,11 @@ namespace Ashton_Wray_C968
 
             // Set text box values to the Outsourced part attributes
             modPartIdTextBox.Text = outsourcedPart.PartId.ToString();
-            modPartNameTextBox.Text = outsourcedPart.PartName;
-            modPartInventoryTextBox.Text = outsourcedPart.PartInStock.ToString();
-            modPartPriceTextBox.Text = outsourcedPart.PartPrice.ToString();
-            modPartMinTextBox.Text = outsourcedPart.PartMin.ToString();
-            modPartMaxTextBox.Text = outsourcedPart.PartMax.ToString();
+            modPartNameTextBox.Text = outsourcedPart.Name;
+            modPartInventoryTextBox.Text = outsourcedPart.Inventory.ToString();
+            modPartPriceTextBox.Text = outsourcedPart.Price.ToString();
+            modPartMinTextBox.Text = outsourcedPart.Min.ToString();
+            modPartMaxTextBox.Text = outsourcedPart.Max.ToString();
             modPartMacIdCompNameTextBox.Text = outsourcedPart.CompanyName;
             modPartOutsourcedRadioButton.Checked = true;
         }
@@ -229,20 +229,20 @@ namespace Ashton_Wray_C968
                 // Set the PartId attribute to the value in the text box
                 inHousePart.PartId = int.Parse(modPartIdTextBox.Text);
 
-                // Set the PartName attribute to the value in the text box
-                inHousePart.PartName = modPartNameTextBox.Text;
+                // Set the Name attribute to the value in the text box
+                inHousePart.Name = modPartNameTextBox.Text;
 
-                // Set the PartInStock attribute to the value in the text box
-                inHousePart.PartInStock = int.Parse(modPartInventoryTextBox.Text);
+                // Set the Inventory attribute to the value in the text box
+                inHousePart.Inventory = int.Parse(modPartInventoryTextBox.Text);
 
-                // Set the PartPrice attribute to the value in the text box
-                inHousePart.PartPrice = decimal.Parse(modPartPriceTextBox.Text);
+                // Set the Price attribute to the value in the text box
+                inHousePart.Price = decimal.Parse(modPartPriceTextBox.Text);
 
-                // Set the PartMin attribute to the value in the text box
-                inHousePart.PartMin = int.Parse(modPartMinTextBox.Text);
+                // Set the Min attribute to the value in the text box
+                inHousePart.Min = int.Parse(modPartMinTextBox.Text);
 
-                // Set the PartMax attribute to the value in the text box
-                inHousePart.PartMax = int.Parse(modPartMaxTextBox.Text);
+                // Set the Max attribute to the value in the text box
+                inHousePart.Max = int.Parse(modPartMaxTextBox.Text);
 
                 // Set the MachineId attribute to the value in the text box
                 inHousePart.MachineId = int.Parse(modPartMacIdCompNameTextBox.Text);
@@ -259,20 +259,20 @@ namespace Ashton_Wray_C968
                 // Set the PartId attribute to the value in the text box
                 outsourcedPart.PartId = int.Parse(modPartIdTextBox.Text);
 
-                // Set the PartName attribute to the value in the text box
-                outsourcedPart.PartName = modPartNameTextBox.Text;
+                // Set the Name attribute to the value in the text box
+                outsourcedPart.Name = modPartNameTextBox.Text;
 
-                // Set the PartInStock attribute to the value in the text box
-                outsourcedPart.PartInStock = int.Parse(modPartInventoryTextBox.Text);
+                // Set the Inventory attribute to the value in the text box
+                outsourcedPart.Inventory = int.Parse(modPartInventoryTextBox.Text);
 
-                // Set the PartPrice attribute to the value in the text box
-                outsourcedPart.PartPrice = decimal.Parse(modPartPriceTextBox.Text);
+                // Set the Price attribute to the value in the text box
+                outsourcedPart.Price = decimal.Parse(modPartPriceTextBox.Text);
 
-                // Set the PartMin attribute to the value in the text box
-                outsourcedPart.PartMin = int.Parse(modPartMinTextBox.Text);
+                // Set the Min attribute to the value in the text box
+                outsourcedPart.Min = int.Parse(modPartMinTextBox.Text);
 
-                // Set the PartMax attribute to the value
-                outsourcedPart.PartMax = int.Parse(modPartMaxTextBox.Text);
+                // Set the Max attribute to the value
+                outsourcedPart.Max = int.Parse(modPartMaxTextBox.Text);
 
                 // Set the CompanyName attribute to the value in the text box
                 outsourcedPart.CompanyName = modPartMacIdCompNameTextBox.Text;

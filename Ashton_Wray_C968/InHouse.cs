@@ -20,27 +20,27 @@
         }
 
         // Constructor with parameters for all fields
-        public InHouse(int partId, string partName, decimal partPrice, int partInStock, int partMin, int partMax,
+        public InHouse(int partId, string name, decimal price, int inventory, int min, int max,
             int machineId)
         {
             PartId = partId;
-            PartName = partName;
-            PartPrice = partPrice;
-            PartInStock = partInStock;
-            PartMin = partMin;
-            PartMax = partMax;
+            Name = name;
+            Price = price;
+            Inventory = inventory;
+            Min = min;
+            Max = max;
             MachineId = machineId;
         }
 
         // Constructor with parameters for all fields except machineId
-        public InHouse(int partId, string partName, decimal partPrice, int partInStock, int partMin, int partMax)
+        public InHouse(int partId, string name, decimal price, int inventory, int min, int max)
         {
             PartId = partId;
-            PartName = partName;
-            PartPrice = partPrice;
-            PartInStock = partInStock;
-            PartMin = partMin;
-            PartMax = partMax;
+            Name = name;
+            Price = price;
+            Inventory = inventory;
+            Min = min;
+            Max = max;
         }
     }
 }

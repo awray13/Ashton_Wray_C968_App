@@ -29,20 +29,20 @@ namespace Ashton_Wray_C968
                 // Set the PartId attribute to the auto-generated value
                 newInHousePart.PartId = Inventory.AllParts.Count + 1;
 
-                // Set the PartName attribute to the value in the text box
-                newInHousePart.PartName = addPartNameTextBox.Text;
+                // Set the Name attribute to the value in the text box
+                newInHousePart.Name = addPartNameTextBox.Text;
 
-                // Set the PartInStock attribute to the value in the text box
-                newInHousePart.PartInStock = Convert.ToInt32(addPartInventoryTextBox.Text);
+                // Set the Inventory attribute to the value in the text box
+                newInHousePart.Inventory = Convert.ToInt32(addPartInventoryTextBox.Text);
 
-                // Set the PartPrice attribute to the value in the text box
-                newInHousePart.PartPrice = Convert.ToDecimal(addPartPriceTextBox.Text);
+                // Set the Price attribute to the value in the text box
+                newInHousePart.Price = Convert.ToDecimal(addPartPriceTextBox.Text);
 
-                // Set the PartMin attribute to the value in the text box
-                newInHousePart.PartMin = Convert.ToInt32(addPartMinTextBox.Text);
+                // Set the Min attribute to the value in the text box
+                newInHousePart.Min = Convert.ToInt32(addPartMinTextBox.Text);
 
-                // Set the PartMax attribute to the value in the text box
-                newInHousePart.PartMax = Convert.ToInt32(addPartMaxTextBox.Text);
+                // Set the Max attribute to the value in the text box
+                newInHousePart.Max = Convert.ToInt32(addPartMaxTextBox.Text);
 
                 // Set the MachineId attribute to the value in the text box
                 newInHousePart.MachineId = Convert.ToInt32(addPartMacIdCompNameTextBox.Text);
@@ -60,20 +60,20 @@ namespace Ashton_Wray_C968
                 // Set the PartId attribute to the auto-generated value
                 newOutsourcedPart.PartId = Inventory.AllParts.Count + 1;
 
-                // Set the PartName attribute to the value in the text box
-                newOutsourcedPart.PartName = addPartNameTextBox.Text;
+                // Set the Name attribute to the value in the text box
+                newOutsourcedPart.Name = addPartNameTextBox.Text;
 
-                // Set the PartInStock attribute to the value in the text box
-                newOutsourcedPart.PartInStock = Convert.ToInt32(addPartInventoryTextBox.Text);
+                // Set the Inventory attribute to the value in the text box
+                newOutsourcedPart.Inventory = Convert.ToInt32(addPartInventoryTextBox.Text);
 
-                // Set the PartPrice attribute to the value in the text box
-                newOutsourcedPart.PartPrice = Convert.ToDecimal(addPartPriceTextBox.Text);
+                // Set the Price attribute to the value in the text box
+                newOutsourcedPart.Price = Convert.ToDecimal(addPartPriceTextBox.Text);
 
-                // Set the PartMin attribute to the value in the text box
-                newOutsourcedPart.PartMin = Convert.ToInt32(addPartMinTextBox.Text);
+                // Set the Min attribute to the value in the text box
+                newOutsourcedPart.Min = Convert.ToInt32(addPartMinTextBox.Text);
 
-                // Set the PartMax attribute to the value in the text box
-                newOutsourcedPart.PartMax = Convert.ToInt32(addPartMaxTextBox.Text);
+                // Set the Max attribute to the value in the text box
+                newOutsourcedPart.Max = Convert.ToInt32(addPartMaxTextBox.Text);
 
                 // Set the CompanyName attribute to the value in the text box
                 newOutsourcedPart.CompanyName = addPartMacIdCompNameTextBox.Text;

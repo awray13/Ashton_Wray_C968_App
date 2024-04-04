@@ -15,41 +15,41 @@ namespace Ashton_Wray_C968
             // Add sample parts
             InHouse part1 = new InHouse();
             part1.PartId = 1;
-            part1.PartName = "Nails";
-            part1.PartPrice = 10.00M;
-            part1.PartInStock = 5;
-            part1.PartMin = 1;
-            part1.PartMax = 10;
+            part1.Name = "Nails";
+            part1.Price = 10.00M;
+            part1.Inventory = 5;
+            part1.Min = 1;
+            part1.Max = 10;
             part1.MachineId = 1;
             AllParts.Add(part1);
 
             Outsourced part2 = new Outsourced();
             part2.PartId = 2;
-            part2.PartName = "Gravel";
-            part2.PartPrice = 20.00M;
-            part2.PartInStock = 10;
-            part2.PartMin = 1;
-            part2.PartMax = 20;
+            part2.Name = "Gravel";
+            part2.Price = 20.00M;
+            part2.Inventory = 10;
+            part2.Min = 1;
+            part2.Max = 20;
             part2.CompanyName = "Lowes";
             AllParts.Add(part2);
 
             InHouse part3 = new InHouse();
             part3.PartId = 3;
-            part3.PartName = "Hammer";
-            part3.PartPrice = 30.00M;
-            part3.PartInStock = 15;
-            part3.PartMin = 1;
-            part3.PartMax = 30;
+            part3.Name = "Hammer";
+            part3.Price = 30.00M;
+            part3.Inventory = 15;
+            part3.Min = 1;
+            part3.Max = 30;
             part3.MachineId = 2;
             AllParts.Add(part3);
 
             Outsourced part4 = new Outsourced();
             part4.PartId = 4;
-            part4.PartName = "Oil";
-            part4.PartPrice = 40.00M;
-            part4.PartInStock = 20;
-            part4.PartMin = 1;
-            part4.PartMax = 40;
+            part4.Name = "Oil";
+            part4.Price = 40.00M;
+            part4.Inventory = 20;
+            part4.Min = 1;
+            part4.Max = 40;
             part4.CompanyName = "Advanced Auto";
             AllParts.Add(part4);
 
@@ -61,8 +61,8 @@ namespace Ashton_Wray_C968
             product1.ProductInStock = 5;
             product1.ProductMin = 1;
             product1.ProductMax = 10;
-            product1.AssociatedParts.Add(part1);
-            product1.AssociatedParts.Add(part2);
+            product1.AddAssociatedPart(part1);
+            product1.AddAssociatedPart(part2);
             Products.Add(product1);
 
             Product product2 = new Product();
@@ -72,8 +72,8 @@ namespace Ashton_Wray_C968
             product2.ProductInStock = 10;
             product2.ProductMin = 1;
             product2.ProductMax = 20;
-            product2.AssociatedParts.Add(part3);
-            product2.AssociatedParts.Add(part4);
+            product2.AddAssociatedPart(part3);
+            product2.AddAssociatedPart(part4);
             Products.Add(product2);
 
             Product product3 = new Product();
@@ -83,8 +83,8 @@ namespace Ashton_Wray_C968
             product3.ProductInStock = 15;
             product3.ProductMin = 1;
             product3.ProductMax = 30;
-            product3.AssociatedParts.Add(part1);
-            product3.AssociatedParts.Add(part2);
+            product3.AddAssociatedPart(part1);
+            product3.AddAssociatedPart(part2);
             Products.Add(product3);
 
             Product product4 = new Product();
@@ -94,8 +94,8 @@ namespace Ashton_Wray_C968
             product4.ProductInStock = 20;
             product4.ProductMin = 1;
             product4.ProductMax = 40;
-            product4.AssociatedParts.Add(part3);
-            product4.AssociatedParts.Add(part4);
+            product4.AddAssociatedPart(part3);
+            product4.AddAssociatedPart(part4);
             Products.Add(product4);
         }
 
