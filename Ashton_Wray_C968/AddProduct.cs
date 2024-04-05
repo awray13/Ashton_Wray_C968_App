@@ -42,7 +42,14 @@ namespace Ashton_Wray_C968
         // Delete associated part button click event
         private void DeleteAssociatedPartButton_Click(object sender, System.EventArgs e)
         {
-
+            // when delete associated part button is clicked, remove the selected part from the associated parts list with confirmation dialog box
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this part?", "Delete Part", MessageBoxButtons.OKCancel);
+            if (dialogResult == DialogResult.OK)
+            {
+                Part part = (Part)addProductAssociatedPartsGridView.CurrentRow.DataBoundItem;
+                product.AssociatedParts.Remove(part);
+            }
+            else return;
         }
 
         // Save button click event
@@ -113,33 +120,62 @@ namespace Ashton_Wray_C968
             this.Close();
         }
 
+        // This method is used to validate the input for the AddProductInventoryTextBox is a digit
         private void AddProductInventoryTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Check if the key pressed is not a digit or the backspace key
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+            {
+                // Set e.Handled to true to cancel the key press
+                e.Handled = true;
+            }
 
         }
 
+        // This method is used to validate the input for the AddProductPriceTextBox is a decimal
         private void AddProductPriceTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Check if the key pressed is not a digit, the backspace key, or a decimal point
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != 46)
+            {
+                // Set e.Handled to true to cancel the key press
+                e.Handled = true;
+            }
 
         }
 
+        // This method is used to validate the input for the AddProductMaxTextBox is a digit
         private void AddProductMaxTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Check if the key pressed is not a digit or the backspace key
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+            {
+                // Set e.Handled to true to cancel the key press
+                e.Handled = true;
+            }
 
         }
 
+
+        // This method is used to validate the input for the AddProductMinTextBox is a digit
         private void AddProductMinTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Check if the key pressed is not a digit or the backspace key
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+            {
+                // Set e.Handled to true to cancel the key press
+                e.Handled = true;
+            }
 
         }
 
-        // Load event for the AddProductForm
+        // Loads event for the AddProductForm
         private void AddProductForm_Load(object sender, System.EventArgs e)
         {
-            // Load the AddProductForm with next available Product ID
+            // Loads the AddProductForm with next available Product ID
             addProductIdTextBox.Text = Inventory.CalculateProductId().ToString();
 
-            // Create a new BindingList of Candidate Parts
+            // Creates a new BindingSource of Candidate Parts
             var candidatePartLoad = new BindingSource();
             candidatePartLoad.DataSource = Inventory.AllParts;
             addProductCandidateGridView.DataSource = candidatePartLoad;
@@ -147,19 +183,19 @@ namespace Ashton_Wray_C968
 
 
 
-            // Create a new BindingList of Associated Parts
+            // Creates a new BindingSource of Associated Parts
             var associatedPartLoad = new BindingSource();
             associatedPartLoad.DataSource = product.AssociatedParts;
             addProductAssociatedPartsGridView.DataSource = associatedPartLoad;
             addProductAssociatedPartsGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Load all Associated Parts into the associatedPartLoad BindingList
+            // Loads all Associated Parts into the associatedPartLoad BindingList
             foreach (Part part in product.AssociatedParts)
             {
                 associatedPartLoad.Add(part);
             }
 
-            // Set the DataSource of the addProductAssociatedPartsGridView to the associatedPartLoad BindingList
+            // Sets the DataSource of the addProductAssociatedPartsGridView to the associatedPartLoad BindingList
             addProductAssociatedPartsGridView.DataSource = associatedPartLoad;
         }
 

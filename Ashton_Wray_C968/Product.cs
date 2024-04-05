@@ -76,6 +76,7 @@ namespace Ashton_Wray_C968
             AssociatedParts.Add(part);
         }
 
+        // Removes a part from the AssociatedParts list
         public bool RemoveAssociatedPart(int partId)
         {
             bool partRemoved = false;
