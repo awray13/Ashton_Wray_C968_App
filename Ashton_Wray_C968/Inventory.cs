@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace Ashton_Wray_C968
 {
@@ -99,30 +98,29 @@ namespace Ashton_Wray_C968
             Products.Add(product4);
         }
 
+
         // Adds a product to the inventory
         public static void AddProduct(Product product)
         {
             Products.Add(product);
         }
 
-        // Removes a product from the inventory
+        // Removes a product from the inventory along with its associated parts
         public static bool RemoveProduct(int productId)
         {
-            foreach (Product product in Products)
+            if (Products.Contains(Products[productId]))
             {
-                if (product.ProductId == productId)
-                {
-                    Products.Remove(product);
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("ERROR: Removal failed!");
-                    return false;
-                }
+                Products.Remove(Products[productId]);
+                return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
+
+
+
 
         // Looks up a product in the inventory
         public static Product LookupProduct(int productId)
@@ -157,22 +155,17 @@ namespace Ashton_Wray_C968
         }
 
         // Removes a part from the inventory
-        public static bool DeletePart(int partId)
+        public static bool DeletePart(Part partId)
         {
-            foreach (Part part in AllParts)
+            if (AllParts.Contains(partId))
             {
-                if (part.PartId == partId)
-                {
-                    AllParts.Remove(part);
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("ERROR: Removal failed!");
-                    return false;
-                }
+                AllParts.Remove(partId);
+                return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         // Looks up a part in the inventory

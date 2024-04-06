@@ -65,28 +65,28 @@ namespace Ashton_Wray_C968
         // Delete part button click event
         private void DeletePartButton_Click(object sender, System.EventArgs e)
         {
-
-            // Check if a part is selected
-            if (partGridView.CurrentRow != null)
+            // Display a confirmation dialog to confirm the deletion
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this part?", "Delete Part?", MessageBoxButtons.OKCancel);
+            if (dialogResult == DialogResult.OK)
             {
-                // Pop up confirmation message
-                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this part?", "Delete Part?", MessageBoxButtons.OKCancel);
-                if (dialogResult == DialogResult.Cancel)
+                // Get the selected part from the grid view
+                Part part = (Part)partGridView.CurrentRow.DataBoundItem;
+
+                // Call the DeletePart method from the Inventory class
+                bool deleted = Inventory.DeletePart(part);
+
+                if (deleted)
                 {
-                    return;
+                    MessageBox.Show("Part deleted successfully!");
                 }
-                else if (dialogResult == DialogResult.OK)
+                else
                 {
-                    foreach (DataGridViewRow row in partGridView.SelectedRows)
-                    {
-                        partGridView.Rows.RemoveAt(row.Index);
-                        MessageBox.Show("Part deleted successfully!");
-                    }
+                    MessageBox.Show("ERROR: Failed to delete the part!");
                 }
             }
             else
             {
-                MessageBox.Show("ERROR: Please select a part to delete!");
+                return;
             }
 
         }
@@ -136,15 +136,50 @@ namespace Ashton_Wray_C968
         // Modify product button click event
         private void ModifyProductButton_Click(object sender, System.EventArgs e)
         {
-            // Open the Modify Product Form
-            ModifyProductForm modifyProductForm = new ModifyProductForm();
-            modifyProductForm.ShowDialog();
+            // Check if a product is selected
+            if (productGridView.CurrentRow != null)
+            {
+                Product product = (Product)productGridView.CurrentRow.DataBoundItem;
+                ModifyProductForm modifyProductForm = new ModifyProductForm(product);
+                modifyProductForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("ERROR: Product not found!");
+            }
         }
 
         // Delete product button click event
         private void DeleteProductButton_Click(object sender, System.EventArgs e)
         {
+            // Check if a product is selected
+            if (productGridView.CurrentRow != null)
+            {
+                // Get the selected product from the grid view
+                Product product = (Product)productGridView.CurrentRow.DataBoundItem;
 
+                // Display a confirmation dialog to confirm the deletion
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this product?", "Delete Product?", MessageBoxButtons.OKCancel);
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    // Remove the selected product from the inventory using the RemoveProduct method
+                    bool removed = Inventory.RemoveProduct(product.ProductId);
+
+                    if (removed)
+                    {
+                        MessageBox.Show("Product deleted successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("ERROR: Failed to delete the product!");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("ERROR: Product not found!");
+            }
         }
 
         // Search product button click event

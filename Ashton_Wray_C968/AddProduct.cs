@@ -25,8 +25,33 @@ namespace Ashton_Wray_C968
         // Add product search button click event
         private void AddProductSearchButton_Click(object sender, System.EventArgs e)
         {
-            // 
-
+            // try catch block to catch any exceptions and search for a part in the candidate parts list
+            try
+            {
+                Part part = Inventory.LookupPart(int.Parse(addProductSearchTextBox.Text));
+                if (part != null)
+                {
+                    addProductCandidateGridView.ClearSelection();
+                    foreach (DataGridViewRow row in addProductCandidateGridView.Rows)
+                    {
+                        Part candidatePart = (Part)row.DataBoundItem;
+                        if (candidatePart.PartId == part.PartId)
+                        {
+                            row.Selected = true;
+                            addProductCandidateGridView.CurrentCell = row.Cells[0];
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Part not found.");
+                }
+            }
+            catch (System.Exception)
+            {
+                MessageBox.Show("An error occurred.");
+            }
         }
 
         // Add associated part button click event
