@@ -77,24 +77,8 @@ namespace Ashton_Wray_C968
         }
 
         // Removes a part from the AssociatedParts list
-        public bool RemoveAssociatedPart(int partId)
-        {
-            bool partRemoved = false;
+        // Only removes the part if the partId matches the partId of the part to be removed and isn't associated with any Products
 
-            foreach (Part part in AssociatedParts)
-            {
-                if (part.PartId == partId)
-                {
-                    AssociatedParts.Remove(part);
-                    partRemoved = true;
-                }
-                else
-                {
-                    partRemoved = false;
-                }
-            }
-            return partRemoved;
-        }
 
         public Part LookupAssociatedPart(int partId)
         {
@@ -106,6 +90,37 @@ namespace Ashton_Wray_C968
                 }
             }
             return null;
+        }
+        // Removes a part from the AssociatedParts list
+        public bool RemoveAssociatedPart(int partId)
+        {
+            bool partRemoved = false;
+
+            foreach (Part part in AssociatedParts)
+            {
+                if (part.PartId == partId && !IsPartAssociatedWithProduct(part))
+                {
+                    AssociatedParts.Remove(part);
+                    partRemoved = true;
+                    break;
+                }
+            }
+
+            return partRemoved;
+        }
+
+        // Checks if a part is associated with any Product
+        private bool IsPartAssociatedWithProduct(Part part)
+        {
+            foreach (Product product in Inventory.Products)
+            {
+                if (product.AssociatedParts.Contains(part))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

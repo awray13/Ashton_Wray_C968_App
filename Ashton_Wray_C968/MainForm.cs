@@ -72,23 +72,32 @@ namespace Ashton_Wray_C968
                 // Get the selected part from the grid view
                 Part part = (Part)partGridView.CurrentRow.DataBoundItem;
 
-                // Call the DeletePart method from the Inventory class
-                bool deleted = Inventory.DeletePart(part);
+                // Check if the part is associated with any product
+                bool isPartAssociated = Inventory.IsPartAssociatedWithProduct(part);
 
-                if (deleted)
+                if (isPartAssociated)
                 {
-                    MessageBox.Show("Part deleted successfully!");
+                    MessageBox.Show("ERROR: This part is associated with a product and cannot be deleted!");
                 }
                 else
                 {
-                    MessageBox.Show("ERROR: Failed to delete the part!");
+                    // Call the DeletePart method from the Inventory class
+                    bool deleted = Inventory.DeletePart(part);
+
+                    if (deleted)
+                    {
+                        MessageBox.Show("Part deleted successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("ERROR: Failed to delete the part!");
+                    }
                 }
             }
             else
             {
                 return;
             }
-
         }
 
         // Search part button click event
@@ -152,34 +161,37 @@ namespace Ashton_Wray_C968
         // Delete product button click event
         private void DeleteProductButton_Click(object sender, System.EventArgs e)
         {
-            // Check if a product is selected
-            if (productGridView.CurrentRow != null)
+            // Display a confirmation dialog to confirm the deletion
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this product?", "Delete Product?", MessageBoxButtons.OKCancel);
+
+            if (dialogResult == DialogResult.OK)
             {
                 // Get the selected product from the grid view
                 Product product = (Product)productGridView.CurrentRow.DataBoundItem;
 
-                // Display a confirmation dialog to confirm the deletion
-                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this product?", "Delete Product?", MessageBoxButtons.OKCancel);
-
-                if (dialogResult == DialogResult.OK)
+                // Check if the product has any associated parts
+                if (product.AssociatedParts.Count > 0)
                 {
-                    // Remove the selected product from the inventory using the RemoveProduct method
-                    bool removed = Inventory.RemoveProduct(product.ProductId);
+                    MessageBox.Show("ERROR: This product has associated parts and cannot be deleted!");
+                }
+                else
+                {
+                    // Call the RemoveProduct method from the Inventory class
+                    bool deleted = Inventory.RemoveProduct(product.ProductId);
 
-                    if (removed)
+                    if (deleted)
                     {
-                        MessageBox.Show("Product deleted successfully!");
+
+                        MessageBox.Show("ERROR: Failed to delete the product!");
                     }
                     else
                     {
-                        MessageBox.Show("ERROR: Failed to delete the product!");
+                        MessageBox.Show("Product deleted successfully!");
                     }
                 }
             }
-            else
-            {
-                MessageBox.Show("ERROR: Product not found!");
-            }
+
+
         }
 
         // Search product button click event

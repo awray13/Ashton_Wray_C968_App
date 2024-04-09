@@ -105,21 +105,21 @@ namespace Ashton_Wray_C968
             Products.Add(product);
         }
 
-        // Removes a product from the inventory along with its associated parts
+        // Removes a product from the inventory
         public static bool RemoveProduct(int productId)
         {
-            if (Products.Contains(Products[productId]))
+            bool productRemoved = false;
+            foreach (Product product in Products)
             {
-                Products.Remove(Products[productId]);
-                return true;
+                if (product.ProductId == productId)
+                {
+                    Products.Remove(product);
+                    productRemoved = true;
+                    break;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
-
-
 
 
         // Looks up a product in the inventory
@@ -244,6 +244,33 @@ namespace Ashton_Wray_C968
             }
 
             return result;
+        }
+
+        // Helper method to determine if a part is associated with a product
+        public static bool IsPartAssociatedWithProduct(Part part)
+        {
+            foreach (Product product in Inventory.Products)
+            {
+                if (product.AssociatedParts.Contains(part))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Helper method to determine if a product is associated with any parts
+        public static bool IsProductAssociatedWithPart(Product product)
+        {
+            if (product.AssociatedParts.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }
