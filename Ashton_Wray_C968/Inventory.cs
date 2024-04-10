@@ -2,7 +2,7 @@
 
 namespace Ashton_Wray_C968
 {
-    public class Inventory
+    public static class Inventory
     {
         // Attributes for Products and AllParts
         public static BindingList<Product> Products = new BindingList<Product>();
