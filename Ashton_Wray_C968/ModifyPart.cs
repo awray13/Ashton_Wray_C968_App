@@ -209,7 +209,7 @@ namespace Ashton_Wray_C968
                 // Check if the company name text box is empty and not a digit
                 if (int.TryParse(modPartMacIdCompNameTextBox.Text, out int machineId))
                 {
-                    MessageBox.Show("Company Name must be empty!");
+                    MessageBox.Show("Company Name must not be empty!");
                     return false;
                 }
 

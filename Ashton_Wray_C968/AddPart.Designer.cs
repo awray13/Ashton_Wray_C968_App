@@ -136,6 +136,7 @@
             this.addPartInventoryTextBox.Name = "addPartInventoryTextBox";
             this.addPartInventoryTextBox.Size = new System.Drawing.Size(100, 20);
             this.addPartInventoryTextBox.TabIndex = 8;
+            this.addPartInventoryTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddPartInventoryTextBox_KeyPress);
             // 
             // addPartPriceLabel
             // 
@@ -153,6 +154,7 @@
             this.addPartPriceTextBox.Name = "addPartPriceTextBox";
             this.addPartPriceTextBox.Size = new System.Drawing.Size(100, 20);
             this.addPartPriceTextBox.TabIndex = 10;
+            this.addPartPriceTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddPartPriceTextBox_KeyPress);
             // 
             // addPartMaxLabel
             // 
@@ -170,6 +172,7 @@
             this.addPartMaxTextBox.Name = "addPartMaxTextBox";
             this.addPartMaxTextBox.Size = new System.Drawing.Size(76, 20);
             this.addPartMaxTextBox.TabIndex = 12;
+            this.addPartMaxTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddPartMaxTextBox_KeyPress);
             // 
             // addPartMinLabel
             // 
@@ -187,6 +190,7 @@
             this.addPartMinTextBox.Name = "addPartMinTextBox";
             this.addPartMinTextBox.Size = new System.Drawing.Size(76, 20);
             this.addPartMinTextBox.TabIndex = 14;
+            this.addPartMinTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddPartMinTextBox_KeyPress);
             // 
             // addPartMacIdCompNameLabel
             // 
@@ -204,6 +208,7 @@
             this.addPartMacIdCompNameTextBox.Name = "addPartMacIdCompNameTextBox";
             this.addPartMacIdCompNameTextBox.Size = new System.Drawing.Size(100, 20);
             this.addPartMacIdCompNameTextBox.TabIndex = 16;
+            this.addPartMacIdCompNameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddPartMacIdCompNameTextBox_KeyPress);
             // 
             // addPartSaveButton
             // 
