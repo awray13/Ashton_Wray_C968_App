@@ -181,12 +181,11 @@ namespace Ashton_Wray_C968
 
                     if (deleted)
                     {
-
-                        MessageBox.Show("ERROR: Failed to delete the product!");
+                        MessageBox.Show("Product deleted successfully!");
                     }
                     else
                     {
-                        MessageBox.Show("Product deleted successfully!");
+                        MessageBox.Show("ERROR: Failed to delete the product!");
                     }
                 }
             }
@@ -235,6 +234,26 @@ namespace Ashton_Wray_C968
             this.Close();
         }
 
+        // TODO: Part Grid View Cell formatting: format the "Price" column as currency
+        private void PartGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Check if the current column is the "Price" column
+            //if (e.ColumnIndex == partGridView.Columns["Price"].Index && e.Value != null)
+            //{
+            //    // Format the cell value as currency
+            //    e.Value = ((decimal)e.Value).ToString("C");
+            //}
+        }
 
+        // TODO: Product Grid View Cell formatting: format the "Price" column as currency
+        private void ProductGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Check if the current column is the "Price" column
+            //if (e.ColumnIndex == productGridView.Columns["Price"].Index && e.Value != null)
+            //{
+            //    // Format the cell value as currency
+            //    e.Value = ((decimal)e.Value).ToString("C");
+            //}
+        }
     }
 }

@@ -101,6 +101,7 @@
             this.partGridView.RowTemplate.Height = 24;
             this.partGridView.Size = new System.Drawing.Size(471, 210);
             this.partGridView.TabIndex = 1;
+            this.partGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.PartGridView_CellFormatting);
             // 
             // partIdDataGridViewTextBoxColumn
             // 
@@ -245,6 +246,7 @@
             this.productGridView.RowHeadersVisible = false;
             this.productGridView.Size = new System.Drawing.Size(471, 210);
             this.productGridView.TabIndex = 11;
+            this.productGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ProductGridView_CellFormatting);
             // 
             // productIdDataGridViewTextBoxColumn
             // 

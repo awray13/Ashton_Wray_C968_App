@@ -105,6 +105,7 @@ namespace Ashton_Wray_C968
             Products.Add(product);
         }
 
+        // TODO: RemoveProduct method: Tested and working
         // Removes a product from the inventory
         public static bool RemoveProduct(int productId)
         {
@@ -118,7 +119,7 @@ namespace Ashton_Wray_C968
                     break;
                 }
             }
-            return false;
+            return productRemoved;
         }
 
 

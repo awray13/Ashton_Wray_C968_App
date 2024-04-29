@@ -53,6 +53,12 @@ namespace Ashton_Wray_C968
             set { _productMax = value; }
         }
 
+        // Change the product price to a string and display as currency
+        public string ProductPriceString
+        {
+            get { return _productPrice.ToString("C"); }
+        }
+
         // Empty constructor
         public Product()
         {

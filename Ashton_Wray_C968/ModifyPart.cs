@@ -4,6 +4,16 @@ namespace Ashton_Wray_C968
 {
     public partial class ModifyPartForm : Form
     {
+        // Define the max values for the text boxes
+        private const int MAX_PART_NAME = 256;
+        private const int MAX_INVENTORY = 999999999;
+        private const decimal MAX_PRICE = 999999999.99m;
+        private const int MAX_MIN = 999999999;
+        private const int MAX_MAX = 999999999;
+        private const int MAX_MACHINE_ID = 999999999;
+        private const int MAX_COMPANY_NAME = 50;
+
+
         public ModifyPartForm()
         {
             // Initialize the ModifyPartForm
@@ -93,42 +103,42 @@ namespace Ashton_Wray_C968
             // Check if the part name text box is empty
             if (string.IsNullOrWhiteSpace(modPartNameTextBox.Text))
             {
-                MessageBox.Show("Part name cannot be empty!");
+                MessageBox.Show("All fields are required!");
                 return false;
             }
 
             // Check if the inventory text box is empty
             if (string.IsNullOrWhiteSpace(modPartInventoryTextBox.Text))
             {
-                MessageBox.Show("Inventory cannot be empty!");
+                MessageBox.Show("All fields are required!");
                 return false;
             }
 
             // Check if the price text box is empty
             if (string.IsNullOrWhiteSpace(modPartPriceTextBox.Text))
             {
-                MessageBox.Show("Price cannot be empty!");
+                MessageBox.Show("All fields are required!");
                 return false;
             }
 
             // Check if the min text box is empty
             if (string.IsNullOrWhiteSpace(modPartMinTextBox.Text))
             {
-                MessageBox.Show("Min cannot be empty!");
+                MessageBox.Show("All fields are required!");
                 return false;
             }
 
             // Check if the max text box is empty
             if (string.IsNullOrWhiteSpace(modPartMaxTextBox.Text))
             {
-                MessageBox.Show("Max cannot be empty!");
+                MessageBox.Show("All fields are required!");
                 return false;
             }
 
             // Check if the machine ID or company name text box is empty
             if (string.IsNullOrWhiteSpace(modPartMacIdCompNameTextBox.Text))
             {
-                MessageBox.Show("Machine ID or Company Name cannot be empty!");
+                MessageBox.Show("All fields are required!");
                 return false;
             }
 
@@ -141,37 +151,48 @@ namespace Ashton_Wray_C968
             // This if statement is used to check if the InHouse radio button is selected
             if (modPartInHouseRadioButton.Checked)
             {
-                // Check if the inventory text box is a digit
-                if (!int.TryParse(modPartInventoryTextBox.Text, out int inventory))
+
+                // Check if the inventory is a valid integer and within the maximum range
+                if (!int.TryParse(modPartInventoryTextBox.Text, out int inventory) || inventory < 0 || inventory > MAX_INVENTORY)
                 {
-                    MessageBox.Show("Inventory must be a number!");
+                    MessageBox.Show("Inventory cannot exceed " + MAX_INVENTORY.ToString());
+                    return false;
+                }
+
+                // Check to see if Min is less than Max
+                if (!int.TryParse(modPartMinTextBox.Text, out int min) || !int.TryParse(modPartMaxTextBox.Text, out int max2) || min > max2)
+                {
+                    string errorMessage = "Your minimum exceeds your maximum. Please try again.";
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                // Check if inventory is greater than Max or less than Min
+                if (inventory > int.Parse(modPartMaxTextBox.Text) || inventory < int.Parse(modPartMinTextBox.Text))
+                {
+                    MessageBox.Show("Inventory cannot be greater than Max or less than Min", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
                 // Check if the price text box is a decimal
-                if (!decimal.TryParse(modPartPriceTextBox.Text, out decimal price))
+                if (!decimal.TryParse(modPartPriceTextBox.Text, out decimal price) || price > MAX_PRICE)
                 {
-                    MessageBox.Show("Price must be a decimal!");
-                    return false;
-                }
-
-                // Check if the min text box is a digit
-                if (!int.TryParse(modPartMinTextBox.Text, out int min))
-                {
-                    MessageBox.Show("Min must be a number!");
+                    MessageBox.Show("Price cannot exceed " + MAX_PRICE.ToString("C") + " and must be a valid decimal!");
                     return false;
                 }
 
                 // Check if the max text box is a digit
-                if (!int.TryParse(modPartMaxTextBox.Text, out int max))
+                if (!int.TryParse(modPartMaxTextBox.Text, out int max) || max > MAX_MAX)
                 {
-                    MessageBox.Show("Max must be a number!");
+                    string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
+
                 // Check if the machine ID is a digit
-                if (!int.TryParse(modPartMacIdCompNameTextBox.Text, out int machineId))
+                if (!int.TryParse(modPartMacIdCompNameTextBox.Text, out int machineId) || machineId < 0 || machineId > MAX_MACHINE_ID)
                 {
-                    MessageBox.Show("Machine ID must be a number!");
+                    MessageBox.Show("Machine ID cannot exceed " + MAX_MACHINE_ID.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -179,40 +200,52 @@ namespace Ashton_Wray_C968
             else if (modPartOutsourcedRadioButton.Checked)
             {
                 // Check if the inventory text box is a digit
-                if (!int.TryParse(modPartInventoryTextBox.Text, out int inventory))
+                if (!int.TryParse(modPartInventoryTextBox.Text, out int inventory) || inventory < 0 || inventory > MAX_INVENTORY)
                 {
-                    MessageBox.Show("Inventory must be a number!");
+                    MessageBox.Show("Inventory cannot exceed " + MAX_INVENTORY.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                // Check if Min is less than Max and within the maximum range
+                if (!int.TryParse(modPartMinTextBox.Text, out int min) || !int.TryParse(modPartMaxTextBox.Text, out int max2) || min > max2)
+                {
+                    string errorMessage = "Your minimum exceeds your maximum. Please try again.";
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                // Check if inventory is greater than Max or less than Min
+                if (inventory > int.Parse(modPartMaxTextBox.Text) || inventory < int.Parse(modPartMinTextBox.Text))
+                {
+                    MessageBox.Show("Inventory cannot be greater than Max or less than Min", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
                 // Check if the price text box is a decimal
-                if (!decimal.TryParse(modPartPriceTextBox.Text, out decimal price))
+                if (!decimal.TryParse(modPartPriceTextBox.Text, out decimal price) || price > MAX_PRICE)
                 {
-                    MessageBox.Show("Price must be a decimal!");
-                    return false;
-                }
-
-                // Check if the min text box is a digit
-                if (!int.TryParse(modPartMinTextBox.Text, out int min))
-                {
-                    MessageBox.Show("Min must be a number!");
+                    MessageBox.Show("Price cannot exceed " + MAX_PRICE.ToString("C"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
                 // Check if the max text box is a digit
-                if (!int.TryParse(modPartMaxTextBox.Text, out int max))
+                if (!int.TryParse(modPartMaxTextBox.Text, out int max) || max > MAX_MAX)
                 {
-                    MessageBox.Show("Max must be a number!");
+                    string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
                 // Check if the company name text box is empty and not a digit
-                if (int.TryParse(modPartMacIdCompNameTextBox.Text, out int machineId))
+                foreach (char c in modPartMacIdCompNameTextBox.Text)
                 {
-                    MessageBox.Show("Company Name must not be empty!");
-                    return false;
-                }
+                    if (!char.IsLetter(c) && c != ' ')
+                    {
+                        MessageBox.Show("Company Name must only contain letters and spaces", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
 
+                    }
+                }
             }
             return true;
         }

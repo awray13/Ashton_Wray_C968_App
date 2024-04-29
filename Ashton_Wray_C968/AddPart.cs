@@ -5,6 +5,15 @@ namespace Ashton_Wray_C968
 {
     public partial class AddPartForm : Form
     {
+        //TODO: Constants for max values allowed: Tested and working.
+        // Define max values for all the text baxes
+        private const int MAX_INVENTORY = 999999999;
+        private const int MAX_MIN = 999999999;
+        private const int MAX_MAX = 999999999;
+        private const int MAX_MACHINE_ID = 999999999;
+        private const decimal MAX_PRICE = 999999999.99m;
+
+
         public AddPartForm()
         {
             InitializeComponent();
@@ -29,62 +38,128 @@ namespace Ashton_Wray_C968
                 string.IsNullOrWhiteSpace(addPartMaxTextBox.Text) ||
                 string.IsNullOrWhiteSpace(addPartMacIdCompNameTextBox.Text))
             {
-                MessageBox.Show("All fields must be filled", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("All fields are required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             // Check if In-House radio button is selected
             if (addPartInHouseRadioButton.Checked)
             {
-                // Create a new InHouse part object with the values in the text boxes
-                InHouse newInHousePart = new InHouse(
+                //TODO: InHouse Inventory Validation: Check if Inventory is between Min and Max: Tested and working.
+                // Check if Inventory is a valid integer and within the maximum range
+                if (!int.TryParse(addPartInventoryTextBox.Text, out int inventory) || inventory < 0 || inventory > MAX_INVENTORY)
+                {
+                    MessageBox.Show("Inventory cannot exceed " + MAX_INVENTORY.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Check to see if Min is less than Max
+                if (!int.TryParse(addPartMinTextBox.Text, out int min) || !int.TryParse(addPartMaxTextBox.Text, out int max2) || min > max2)
+                {
+                    string errorMessage = "Your minimum exceeds your maximum. Please try again.";
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // TODO: check to see if inventory is between min and max - needs to be tested
+                // Check if inventory is greater than Max or less than Min
+                if (inventory > int.Parse(addPartMaxTextBox.Text) || inventory < int.Parse(addPartMinTextBox.Text))
+                {
+                    MessageBox.Show("Inventory cannot be greater than Max or less than Min", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Check if Price is a valid decimal and within the maximum range
+                // TODO: Price Validation: Tested and working.
+                if (!decimal.TryParse(addPartPriceTextBox.Text, out decimal price) || price > MAX_PRICE)
+                {
+                    MessageBox.Show("Price cannot exceed " + MAX_PRICE.ToString("C") + " and must be a valid decimal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Check if Max is within the maximum range
+                if (!int.TryParse(addPartMaxTextBox.Text, out int max) || max > MAX_MAX)
+                {
+                    string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Check if Machine ID is a valid integer and within the maximum range
+                if (!int.TryParse(addPartMacIdCompNameTextBox.Text, out int machineId) || machineId < 0 || machineId > MAX_MACHINE_ID)
+                {
+                    MessageBox.Show("Machine ID cannot exceed " + MAX_MACHINE_ID.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Create a new InHouse part object and add it to the Inventory BindingLists
+                Inventory.AddPart(new InHouse(
                     Inventory.CalculatePartId(),
                     addPartNameTextBox.Text,
-                    Convert.ToDecimal(addPartPriceTextBox.Text),
+                    Convert.ToDecimal(addPartPriceTextBox.Text, System.Globalization.CultureInfo.CurrentCulture),
                     Convert.ToInt32(addPartInventoryTextBox.Text),
                     Convert.ToInt32(addPartMinTextBox.Text),
                     Convert.ToInt32(addPartMaxTextBox.Text),
                     Convert.ToInt32(addPartMacIdCompNameTextBox.Text)
-                    );
+                    ));
 
-                // Check if Inventory is between Min and Max
-                if (int.Parse(addPartInventoryTextBox.Text) < int.Parse(addPartMinTextBox.Text) ||
-                    int.Parse(addPartInventoryTextBox.Text) > int.Parse(addPartMaxTextBox.Text))
-                {
-                    MessageBox.Show("Inventory must be between Min and Max", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Check if Price is a decimal
-                if (!decimal.TryParse(addPartPriceTextBox.Text, out decimal price))
-                {
-                    MessageBox.Show("Price must be a decimal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Check if Min is less than Max
-                if (int.Parse(addPartMinTextBox.Text) > int.Parse(addPartMaxTextBox.Text))
-                {
-                    MessageBox.Show("Min must be less than Max", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Set the MachineId attribute to the value in the text box
-                if (!int.TryParse(addPartMacIdCompNameTextBox.Text, out int machineId))
-                {
-                    MessageBox.Show("Machine ID must be a valid integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Add the new InHouse object to the AllParts BindingList and close the AddPartForm
-                Inventory.AddPart(newInHousePart);
+                // Close the AddPartForms
                 this.Close();
             }
             // else if Outsourced radio button is selected
             else
             {
-                // Create a new Outsourced object
-                Outsourced newOutsourcedPart = new Outsourced(
+                // Check if Inventory is between Min and Max and within the maximum range
+                // TODO: Outsource Inventory Validation: Tested and working.
+                if (!int.TryParse(addPartInventoryTextBox.Text, out int inventory) || inventory < 0 || inventory > MAX_INVENTORY)
+                {
+                    MessageBox.Show("Inventory cannot exceed " + MAX_INVENTORY.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Check if Min is less than Max and within the maximum range
+                if (!int.TryParse(addPartMinTextBox.Text, out int min) || !int.TryParse(addPartMaxTextBox.Text, out int max2) || min > max2)
+                {
+                    string errorMessage = "Your minimum exceeds your maximum. Please try again.";
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Check if inventory is greater than Max or less than Min
+                if (inventory > int.Parse(addPartMaxTextBox.Text) || inventory < int.Parse(addPartMinTextBox.Text))
+                {
+                    MessageBox.Show("Inventory cannot be greater than Max or less than Min", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Check if Price is a valid decimal and within the maximum range
+                if (!decimal.TryParse(addPartPriceTextBox.Text, out decimal price) || price > MAX_PRICE)
+                {
+                    MessageBox.Show("Price cannot exceed " + MAX_PRICE.ToString("C"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Check if Max is within the maximum range
+                if (!int.TryParse(addPartMaxTextBox.Text, out int max) || max > MAX_MAX)
+                {
+                    string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                //TODO: Company Name Character Validation: Tested and working.
+                // Check if Company Name only contains letters and spaces
+                foreach (char c in addPartMacIdCompNameTextBox.Text)
+                {
+                    if (!char.IsLetter(c) && c != ' ')
+                    {
+                        MessageBox.Show("Company Name must only contain letters and spaces", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                // Create a new Outsourced object and add it to the Inventory BindingLists
+                Inventory.AddPart(new Outsourced(
                     Inventory.CalculatePartId(),
                     addPartNameTextBox.Text,
                     Convert.ToDecimal(addPartPriceTextBox.Text),
@@ -92,45 +167,10 @@ namespace Ashton_Wray_C968
                     Convert.ToInt32(addPartMinTextBox.Text),
                     Convert.ToInt32(addPartMaxTextBox.Text),
                     addPartMacIdCompNameTextBox.Text
-                    );
+                    ));
                 addPartOutsourcedRadioButton.Checked = true;
 
-                // Check if Inventory is between Min and Max
-                if (int.Parse(addPartInventoryTextBox.Text) < int.Parse(addPartMinTextBox.Text) ||
-                    int.Parse(addPartInventoryTextBox.Text) > int.Parse(addPartMaxTextBox.Text))
-                {
-                    MessageBox.Show("Inventory must be between Min and Max", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                newOutsourcedPart.Inventory = Convert.ToInt32(addPartInventoryTextBox.Text);
-
-                // Check if Price is a decimal
-                if (!decimal.TryParse(addPartPriceTextBox.Text, out decimal price))
-                {
-                    MessageBox.Show("Price must be a decimal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                newOutsourcedPart.Price = Convert.ToDecimal(addPartPriceTextBox.Text);
-
-                // Check if Min is less than Max
-                if (int.Parse(addPartMinTextBox.Text) > int.Parse(addPartMaxTextBox.Text))
-                {
-                    MessageBox.Show("Min must be less than Max", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                newOutsourcedPart.Min = Convert.ToInt32(addPartMinTextBox.Text);
-                newOutsourcedPart.Max = Convert.ToInt32(addPartMaxTextBox.Text);
-
-                if (string.IsNullOrWhiteSpace(addPartMacIdCompNameTextBox.Text))
-                {
-                    MessageBox.Show("Company Name must be filled", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                // Set the CompanyName attribute to the value in the text box
-                newOutsourcedPart.CompanyName = addPartMacIdCompNameTextBox.Text;
-
-                // Add the new Outsourced object to the AllParts BindingList and close the AddPartForm
-                Inventory.AddPart(newOutsourcedPart);
+                // Close the AddPartForms
                 this.Close();
             }
         }
@@ -202,7 +242,25 @@ namespace Ashton_Wray_C968
 
         private void AddPartMacIdCompNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            // First check if Outsourced radio button is selected
+            if (addPartOutsourcedRadioButton.Checked)
+            {
+                // Check if the key pressed is not a letter, a space, or the backspace key
+                if (!char.IsLetter(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != 32)
+                {
+                    e.Handled = true;
+                }
+            }
+            // else if In-House radio button is selected
+            else
+            {
+                // Check if the key pressed is not a number or the backspace key or minus sign
+                if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != 45)
+                {
+                    e.Handled = true;
+                }
+            }
         }
+
     }
 }
