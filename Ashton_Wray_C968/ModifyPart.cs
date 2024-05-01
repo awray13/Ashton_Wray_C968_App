@@ -206,8 +206,16 @@ namespace Ashton_Wray_C968
                     return false;
                 }
 
-                // Check if Min is less than Max and within the maximum range
-                if (!int.TryParse(modPartMinTextBox.Text, out int min) || !int.TryParse(modPartMaxTextBox.Text, out int max2) || min > max2)
+                // Check if Max exceeds the maximum range
+                if (!int.TryParse(modPartMaxTextBox.Text, out int max) || max > MAX_MAX)
+                {
+                    string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                // Check if Min is less than Max
+                if (!int.TryParse(modPartMinTextBox.Text, out int min) || min > max)
                 {
                     string errorMessage = "Your minimum exceeds your maximum. Please try again.";
                     MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -225,14 +233,6 @@ namespace Ashton_Wray_C968
                 if (!decimal.TryParse(modPartPriceTextBox.Text, out decimal price) || price > MAX_PRICE)
                 {
                     MessageBox.Show("Price cannot exceed " + MAX_PRICE.ToString("C"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-
-                // Check if the max text box is a digit
-                if (!int.TryParse(modPartMaxTextBox.Text, out int max) || max > MAX_MAX)
-                {
-                    string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
-                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 

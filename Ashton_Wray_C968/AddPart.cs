@@ -8,7 +8,7 @@ namespace Ashton_Wray_C968
         //TODO: Constants for max values allowed: Tested and working.
         // Define max values for all the text baxes
         private const int MAX_INVENTORY = 999999999;
-        private const int MAX_MIN = 999999999;
+        private const int MAX_MIN = 1;
         private const int MAX_MAX = 999999999;
         private const int MAX_MACHINE_ID = 999999999;
         private const decimal MAX_PRICE = 999999999.99m;
@@ -53,8 +53,16 @@ namespace Ashton_Wray_C968
                     return;
                 }
 
+                // Check if Max is within the maximum range
+                if (!int.TryParse(addPartMaxTextBox.Text, out int max) || max > MAX_MAX)
+                {
+                    string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 // Check to see if Min is less than Max
-                if (!int.TryParse(addPartMinTextBox.Text, out int min) || !int.TryParse(addPartMaxTextBox.Text, out int max2) || min > max2)
+                if (!int.TryParse(addPartMinTextBox.Text, out int min) || min > max)
                 {
                     string errorMessage = "Your minimum exceeds your maximum. Please try again.";
                     MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -71,17 +79,9 @@ namespace Ashton_Wray_C968
 
                 // Check if Price is a valid decimal and within the maximum range
                 // TODO: Price Validation: Tested and working.
-                if (!decimal.TryParse(addPartPriceTextBox.Text, out decimal price) || price > MAX_PRICE)
+                if (!decimal.TryParse(addPartPriceTextBox.Text, out decimal price) || price < 0 || price > MAX_PRICE)
                 {
                     MessageBox.Show("Price cannot exceed " + MAX_PRICE.ToString("C") + " and must be a valid decimal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Check if Max is within the maximum range
-                if (!int.TryParse(addPartMaxTextBox.Text, out int max) || max > MAX_MAX)
-                {
-                    string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
-                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -117,6 +117,14 @@ namespace Ashton_Wray_C968
                     return;
                 }
 
+                // Check if Max is within the maximum range
+                if (!int.TryParse(addPartMaxTextBox.Text, out int max) || max > MAX_MAX)
+                {
+                    string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 // Check if Min is less than Max and within the maximum range
                 if (!int.TryParse(addPartMinTextBox.Text, out int min) || !int.TryParse(addPartMaxTextBox.Text, out int max2) || min > max2)
                 {
@@ -139,13 +147,6 @@ namespace Ashton_Wray_C968
                     return;
                 }
 
-                // Check if Max is within the maximum range
-                if (!int.TryParse(addPartMaxTextBox.Text, out int max) || max > MAX_MAX)
-                {
-                    string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
-                    MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
 
                 //TODO: Company Name Character Validation: Tested and working.
                 // Check if Company Name only contains letters and spaces

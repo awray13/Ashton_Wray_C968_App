@@ -5,6 +5,12 @@ namespace Ashton_Wray_C968
 {
     public partial class ModifyProductForm : Form
     {
+        // TODO: Add constants for the max values of the text boxes
+        private const int MAX_INVENTORY = 999999999;
+        private const int MAX_MAX = 999999999;
+        private const int MAX_PRICE = 999999999;
+
+
         // Constructor for the AddProductForm
         public BindingList<Part> AssociatedParts = new BindingList<Part>();
         Product product = new Product();
@@ -61,42 +67,57 @@ namespace Ashton_Wray_C968
 
         private void ModProductSearchButton_Click(object sender, System.EventArgs e)
         {
-            // try catch block to catch any exceptions and search for a part in the candidate parts list
-            try
+            // Search for the candidate part in the candidate part list by part ID
+            if (string.IsNullOrWhiteSpace(modProductSearchTextBox.Text) == false)
             {
-                Part part = Inventory.LookupPart(int.Parse(modProductSearchTextBox.Text));
-                if (part != null)
+                try
                 {
-                    modProductCandidateGridView.ClearSelection();
-                    foreach (DataGridViewRow row in modProductCandidateGridView.Rows)
+                    Part part = Inventory.LookupPart(int.Parse(modProductSearchTextBox.Text));
+
+                    if (part != null)
                     {
-                        Part candidatePart = (Part)row.DataBoundItem;
-                        if (candidatePart.PartId == part.PartId)
+                        modProductCandidateGridView.ClearSelection();
+                        foreach (DataGridViewRow row in modProductCandidateGridView.Rows)
                         {
-                            row.Selected = true;
-                            modProductCandidateGridView.CurrentCell = row.Cells[0];
-                            break;
+                            Part candidatePart = (Part)row.DataBoundItem;
+                            if (candidatePart.PartId == part.PartId)
+                            {
+                                row.Selected = true;
+                                modProductCandidateGridView.CurrentCell = row.Cells[0];
+                                break;
+                            }
                         }
                     }
+                    else if (int.Parse(modProductSearchTextBox.Text) > Inventory.AllParts.Count)
+                    {
+                        MessageBox.Show("Part not found.");
+                        modProductSearchTextBox.Text = "";
+                    }
                 }
-                else
+                catch (System.Exception)
                 {
-                    MessageBox.Show("Part not found.");
+                    MessageBox.Show("Invalid entry. Please enter a valid part ID.");
                 }
             }
-            catch (System.Exception)
+            else
             {
-                MessageBox.Show("An error occurred.");
+                MessageBox.Show("Please enter a Part ID.");
             }
-
         }
-
 
         private void AddAssociatedPartButton_Click(object sender, System.EventArgs e)
         {
             // when add associated part button is clicked, add the selected part to the associated parts list
             Part part = (Part)modProductCandidateGridView.CurrentRow.DataBoundItem;
-            product.AddAssociatedPart(part);
+            if (!product.AssociatedParts.Contains(part))
+            {
+                product.AddAssociatedPart(part);
+            }
+            else
+            {
+                MessageBox.Show("Part already associated.");
+            }
+
 
         }
 
@@ -122,7 +143,7 @@ namespace Ashton_Wray_C968
                 string.IsNullOrWhiteSpace(modProductMinTextBox.Text) ||
                 string.IsNullOrWhiteSpace(modProductMaxTextBox.Text))
             {
-                MessageBox.Show("All fields must be filled out.");
+                MessageBox.Show("All fields are required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             // if statement to check if the add product form is valid

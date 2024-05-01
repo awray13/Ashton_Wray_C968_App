@@ -5,6 +5,12 @@ namespace Ashton_Wray_C968
 {
     public partial class AddProductForm : Form
     {
+        // TODO: Constants for the max values allowed in text boxes: wire them up
+        private const int MAX_INVENTORY = 999999999;
+        private const int MAX_MAX = 999999999;
+        private const decimal MAX_PRICE = 999999999.99m;
+
+
         // Constructor for the AddProductForm
         public BindingList<Part> AssociatedParts = new BindingList<Part>();
         Product product = new Product();
@@ -12,8 +18,13 @@ namespace Ashton_Wray_C968
         public AddProductForm()
         {
             InitializeComponent();
+
+            // Set the ProductId text box to the auto-generated value
+            addProductIdTextBox.Text = Inventory.CalculateProductId().ToString();
+
             addProductCandidateGridView.DataSource = Inventory.AllParts;
             addProductAssociatedPartsGridView.DataSource = product.AssociatedParts;
+
             addProductInventoryTextBox.KeyPress += new KeyPressEventHandler(AddProductInventoryTextBox_KeyPress);
             addProductPriceTextBox.KeyPress += new KeyPressEventHandler(AddProductPriceTextBox_KeyPress);
             addProductMaxTextBox.KeyPress += new KeyPressEventHandler(AddProductMaxTextBox_KeyPress);
@@ -22,46 +33,63 @@ namespace Ashton_Wray_C968
 
         }
 
+        // TODO: AddProductSearchButton_Click: seems to be working as expected
         // Add product search button click event
         private void AddProductSearchButton_Click(object sender, System.EventArgs e)
         {
-            // try catch block to catch any exceptions and search for a part in the candidate parts list
-            try
+            // Search for the candidate part in the candidate parts list by part ID
+            if (string.IsNullOrWhiteSpace(addProductSearchTextBox.Text) == false)
             {
-                Part part = Inventory.LookupPart(int.Parse(addProductSearchTextBox.Text));
-                if (part != null)
+                try
                 {
-                    addProductCandidateGridView.ClearSelection();
-                    foreach (DataGridViewRow row in addProductCandidateGridView.Rows)
+                    Part part = Inventory.LookupPart(int.Parse(addProductSearchTextBox.Text));
+
+                    if (part != null)
                     {
-                        Part candidatePart = (Part)row.DataBoundItem;
-                        if (candidatePart.PartId == part.PartId)
+                        addProductCandidateGridView.ClearSelection();
+                        foreach (DataGridViewRow row in addProductCandidateGridView.Rows)
                         {
-                            row.Selected = true;
-                            addProductCandidateGridView.CurrentCell = row.Cells[0];
-                            break;
+                            Part candidatePart = (Part)row.DataBoundItem;
+                            if (candidatePart.PartId == part.PartId)
+                            {
+                                row.Selected = true;
+                                addProductCandidateGridView.CurrentCell = row.Cells[0];
+                                break;
+                            }
                         }
                     }
+                    else if (int.Parse(addProductSearchTextBox.Text) > Inventory.AllParts.Count)
+                    {
+                        MessageBox.Show("Part not found.");
+                        addProductSearchTextBox.Text = "";
+                    }
                 }
-                else
+                catch (System.Exception)
                 {
-                    MessageBox.Show("Part not found.");
+                    MessageBox.Show("Invalid entry. Please enter a valid part ID.");
+                    addProductSearchTextBox.Text = "";
                 }
             }
-            catch (System.Exception)
+            else
             {
-                MessageBox.Show("An error occurred.");
+                MessageBox.Show("Please enter a Part ID.");
             }
         }
 
+        //TODO: AddAssociatedPartButton_Click: only adds the part if it is not already associated - tested and working
         // Add associated part button click event
         private void AddAssociatedPartButton_Click(object sender, System.EventArgs e)
         {
-            // when add associated part button is clicked, add the selected part to the associated parts list
+            // when add associated part button is clicked, add the selected part to the associated parts list only once
             Part part = (Part)addProductCandidateGridView.CurrentRow.DataBoundItem;
-            product.AddAssociatedPart(part);
-
-
+            if (!product.AssociatedParts.Contains(part))
+            {
+                product.AddAssociatedPart(part);
+            }
+            else
+            {
+                MessageBox.Show("Part already associated.");
+            }
         }
 
         // Delete associated part button click event
@@ -80,6 +108,9 @@ namespace Ashton_Wray_C968
         // Save button click event
         private void AddProductSaveButton_Click(object sender, System.EventArgs e)
         {
+            // Auto-generate the ProductId
+            addProductIdTextBox.Text = Inventory.CalculateProductId() + "";
+
             // if statement to check if the product fields are empty
             if (string.IsNullOrWhiteSpace(addProductNameTextBox.Text) ||
                 string.IsNullOrWhiteSpace(addProductInventoryTextBox.Text) ||
@@ -87,26 +118,44 @@ namespace Ashton_Wray_C968
                 string.IsNullOrWhiteSpace(addProductMinTextBox.Text) ||
                 string.IsNullOrWhiteSpace(addProductMaxTextBox.Text))
             {
-                MessageBox.Show("All fields must be filled out.");
+                MessageBox.Show("All fields are required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // if statement to check if the add product form is valid
-            if (int.Parse(addProductMinTextBox.Text) > int.Parse(addProductMaxTextBox.Text))
+
+            // if statement to check if the inventory is a valid number and within maximum range
+            if (!int.TryParse(addProductInventoryTextBox.Text, out int inventory) || inventory < 0 || inventory > MAX_INVENTORY)
             {
-                MessageBox.Show("Min must be less than Max.");
+                MessageBox.Show("Inventory cannot exceed " + MAX_INVENTORY.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // if statement to check if the inventory is between the min and max
-            if (int.Parse(addProductInventoryTextBox.Text) < int.Parse(addProductMinTextBox.Text) ||
-                int.Parse(addProductInventoryTextBox.Text) > int.Parse(addProductMaxTextBox.Text))
+
+            // Check if Max is within the maximum range
+            if (!int.TryParse(addProductMaxTextBox.Text, out int max) || max > MAX_MAX)
             {
-                MessageBox.Show("Inventory must be between Min and Max.");
+                string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
+                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // if statement to check if price is a decimal
-            if (!decimal.TryParse(addProductPriceTextBox.Text, out decimal price))
+
+            // Check to see if Min is less than Max
+            if (!int.TryParse(addProductMinTextBox.Text, out int min) || min > max)
             {
-                MessageBox.Show("Price must be a decimal.");
+                string errorMessage = "Your minimum exceeds your maximum. Please try again.";
+                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Check if inventory is greater than Max or less than Min
+            if (inventory > int.Parse(addProductMaxTextBox.Text) || inventory < int.Parse(addProductMinTextBox.Text))
+            {
+                MessageBox.Show("Inventory cannot be greater than Max or less than Min", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Price validation: check if price is a decimal and within maximum range
+            if (!decimal.TryParse(addProductPriceTextBox.Text, out decimal price) || price < 0 || price > MAX_PRICE)
+            {
+                MessageBox.Show("Price cannot exceed " + MAX_PRICE.ToString("C") + " and must be a valid decimal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -121,7 +170,6 @@ namespace Ashton_Wray_C968
                     newProduct.ProductInStock = int.Parse(addProductInventoryTextBox.Text);
                     newProduct.ProductMin = int.Parse(addProductMinTextBox.Text);
                     newProduct.ProductMax = int.Parse(addProductMaxTextBox.Text);
-
                     foreach (DataGridViewRow row in addProductAssociatedPartsGridView.Rows)
                     {
                         Part part = (Part)row.DataBoundItem;
@@ -129,12 +177,16 @@ namespace Ashton_Wray_C968
                     }
 
                     Inventory.AddProduct(newProduct);
-                    this.Close();
+                    Close();
+                    {
+
+                    }
                 }
                 catch (System.Exception)
                 {
-                    MessageBox.Show("An error occurred.");
+
                 }
+
             }
         }
 
@@ -232,6 +284,11 @@ namespace Ashton_Wray_C968
         private void AddProductAssociatedPartsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void CandidateBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            addProductCandidateGridView.ClearSelection();
         }
     }
 }

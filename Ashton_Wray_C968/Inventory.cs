@@ -169,18 +169,24 @@ namespace Ashton_Wray_C968
             }
         }
 
-        // Looks up a part in the inventory
+        // Look up a part in the inventory using part ID
         public static Part LookupPart(int partId)
         {
             foreach (Part part in AllParts)
             {
+
                 if (part.PartId == partId)
                 {
                     return part;
                 }
+
+                //if (part.PartId.ToString() == query || part.Name.ToLower().Contains(query.ToLower()))
+                //{
+                //    return part;
+                //}
+
             }
-            Part voidPart = new Outsourced();
-            return voidPart;
+            return null;
         }
 
         // Updates a part in the inventory
