@@ -103,7 +103,6 @@ namespace Ashton_Wray_C968
         // Search part button click event
         private void SearchPartButton_Click(object sender, System.EventArgs e)
         {
-            // Code to search for a part in partGridView
             if (partSearchTextBox.Text != "")
             {
                 bool found = false;
@@ -234,26 +233,24 @@ namespace Ashton_Wray_C968
             this.Close();
         }
 
-        // TODO: Part Grid View Cell formatting: format the "Price" column as currency
         private void PartGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Check if the current column is the "Price" column
-            //if (e.ColumnIndex == partGridView.Columns["Price"].Index && e.Value != null)
-            //{
-            //    // Format the cell value as currency
-            //    e.Value = ((decimal)e.Value).ToString("C");
-            //}
+
         }
 
-        // TODO: Product Grid View Cell formatting: format the "Price" column as currency
         private void ProductGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Check if the current column is the "Price" column
-            //if (e.ColumnIndex == productGridView.Columns["Price"].Index && e.Value != null)
-            //{
-            //    // Format the cell value as currency
-            //    e.Value = ((decimal)e.Value).ToString("C");
-            //}
+
+        }
+
+        private void PartViewBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            partGridView.ClearSelection();
+        }
+
+        private void ProductViewBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            productGridView.ClearSelection();
         }
     }
 }

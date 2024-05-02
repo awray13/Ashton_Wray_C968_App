@@ -31,13 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.mainFormLabel = new System.Windows.Forms.Label();
             this.partGridView = new System.Windows.Forms.DataGridView();
-            this.partIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partInStockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partMinDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partMaxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.partLabel = new System.Windows.Forms.Label();
             this.addPartButton = new System.Windows.Forms.Button();
             this.modifyPartButton = new System.Windows.Forms.Button();
@@ -48,6 +41,10 @@
             this.searchProductButton = new System.Windows.Forms.Button();
             this.productSearchTextBox = new System.Windows.Forms.TextBox();
             this.productGridView = new System.Windows.Forms.DataGridView();
+            this.addProductButton = new System.Windows.Forms.Button();
+            this.modifyProductButton = new System.Windows.Forms.Button();
+            this.deleteProductButton = new System.Windows.Forms.Button();
+            this.exitMainFormButton = new System.Windows.Forms.Button();
             this.productIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productInStockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,17 +52,20 @@
             this.productMinDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productMaxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productBindingSouce = new System.Windows.Forms.BindingSource(this.components);
-            this.addProductButton = new System.Windows.Forms.Button();
-            this.modifyProductButton = new System.Windows.Forms.Button();
-            this.deleteProductButton = new System.Windows.Forms.Button();
-            this.exitMainFormButton = new System.Windows.Forms.Button();
+            this.partIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partInStockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partMinDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partMaxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.inventoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.inHouseBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.outsourcedBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.partGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.partBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSouce)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.partBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inHouseBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outsourcedBindingSource)).BeginInit();
@@ -102,46 +102,7 @@
             this.partGridView.Size = new System.Drawing.Size(471, 210);
             this.partGridView.TabIndex = 1;
             this.partGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.PartGridView_CellFormatting);
-            // 
-            // partIdDataGridViewTextBoxColumn
-            // 
-            this.partIdDataGridViewTextBoxColumn.DataPropertyName = "PartId";
-            this.partIdDataGridViewTextBoxColumn.HeaderText = "Part ID";
-            this.partIdDataGridViewTextBoxColumn.Name = "partIdDataGridViewTextBoxColumn";
-            // 
-            // partNameDataGridViewTextBoxColumn
-            // 
-            this.partNameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.partNameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.partNameDataGridViewTextBoxColumn.Name = "partNameDataGridViewTextBoxColumn";
-            // 
-            // partPriceDataGridViewTextBoxColumn
-            // 
-            this.partPriceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            this.partPriceDataGridViewTextBoxColumn.HeaderText = "Price";
-            this.partPriceDataGridViewTextBoxColumn.Name = "partPriceDataGridViewTextBoxColumn";
-            // 
-            // partInStockDataGridViewTextBoxColumn
-            // 
-            this.partInStockDataGridViewTextBoxColumn.DataPropertyName = "Inventory";
-            this.partInStockDataGridViewTextBoxColumn.HeaderText = "Inventory";
-            this.partInStockDataGridViewTextBoxColumn.Name = "partInStockDataGridViewTextBoxColumn";
-            // 
-            // partMinDataGridViewTextBoxColumn
-            // 
-            this.partMinDataGridViewTextBoxColumn.DataPropertyName = "Min";
-            this.partMinDataGridViewTextBoxColumn.HeaderText = "Min";
-            this.partMinDataGridViewTextBoxColumn.Name = "partMinDataGridViewTextBoxColumn";
-            // 
-            // partMaxDataGridViewTextBoxColumn
-            // 
-            this.partMaxDataGridViewTextBoxColumn.DataPropertyName = "Max";
-            this.partMaxDataGridViewTextBoxColumn.HeaderText = "Max";
-            this.partMaxDataGridViewTextBoxColumn.Name = "partMaxDataGridViewTextBoxColumn";
-            // 
-            // partBindingSource
-            // 
-            this.partBindingSource.DataSource = typeof(Ashton_Wray_C968.Part);
+            this.partGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.PartViewBindingComplete);
             // 
             // partLabel
             // 
@@ -247,6 +208,47 @@
             this.productGridView.Size = new System.Drawing.Size(471, 210);
             this.productGridView.TabIndex = 11;
             this.productGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ProductGridView_CellFormatting);
+            this.productGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.ProductViewBindingComplete);
+            // 
+            // addProductButton
+            // 
+            this.addProductButton.Location = new System.Drawing.Point(842, 310);
+            this.addProductButton.Name = "addProductButton";
+            this.addProductButton.Size = new System.Drawing.Size(56, 22);
+            this.addProductButton.TabIndex = 12;
+            this.addProductButton.Text = "Add";
+            this.addProductButton.UseVisualStyleBackColor = true;
+            this.addProductButton.Click += new System.EventHandler(this.AddProductButton_Click);
+            // 
+            // modifyProductButton
+            // 
+            this.modifyProductButton.Location = new System.Drawing.Point(904, 310);
+            this.modifyProductButton.Name = "modifyProductButton";
+            this.modifyProductButton.Size = new System.Drawing.Size(56, 22);
+            this.modifyProductButton.TabIndex = 13;
+            this.modifyProductButton.Text = "Modify";
+            this.modifyProductButton.UseVisualStyleBackColor = true;
+            this.modifyProductButton.Click += new System.EventHandler(this.ModifyProductButton_Click);
+            // 
+            // deleteProductButton
+            // 
+            this.deleteProductButton.Location = new System.Drawing.Point(966, 310);
+            this.deleteProductButton.Name = "deleteProductButton";
+            this.deleteProductButton.Size = new System.Drawing.Size(56, 22);
+            this.deleteProductButton.TabIndex = 14;
+            this.deleteProductButton.Text = "Delete";
+            this.deleteProductButton.UseVisualStyleBackColor = true;
+            this.deleteProductButton.Click += new System.EventHandler(this.DeleteProductButton_Click);
+            // 
+            // exitMainFormButton
+            // 
+            this.exitMainFormButton.Location = new System.Drawing.Point(966, 338);
+            this.exitMainFormButton.Name = "exitMainFormButton";
+            this.exitMainFormButton.Size = new System.Drawing.Size(56, 22);
+            this.exitMainFormButton.TabIndex = 15;
+            this.exitMainFormButton.Text = "Exit";
+            this.exitMainFormButton.UseVisualStyleBackColor = true;
+            this.exitMainFormButton.Click += new System.EventHandler(this.ExitMainFormButton_Click);
             // 
             // productIdDataGridViewTextBoxColumn
             // 
@@ -300,45 +302,45 @@
             // 
             this.productBindingSouce.DataSource = typeof(Ashton_Wray_C968.Product);
             // 
-            // addProductButton
+            // partIdDataGridViewTextBoxColumn
             // 
-            this.addProductButton.Location = new System.Drawing.Point(842, 310);
-            this.addProductButton.Name = "addProductButton";
-            this.addProductButton.Size = new System.Drawing.Size(56, 22);
-            this.addProductButton.TabIndex = 12;
-            this.addProductButton.Text = "Add";
-            this.addProductButton.UseVisualStyleBackColor = true;
-            this.addProductButton.Click += new System.EventHandler(this.AddProductButton_Click);
+            this.partIdDataGridViewTextBoxColumn.DataPropertyName = "PartId";
+            this.partIdDataGridViewTextBoxColumn.HeaderText = "Part ID";
+            this.partIdDataGridViewTextBoxColumn.Name = "partIdDataGridViewTextBoxColumn";
             // 
-            // modifyProductButton
+            // partNameDataGridViewTextBoxColumn
             // 
-            this.modifyProductButton.Location = new System.Drawing.Point(904, 310);
-            this.modifyProductButton.Name = "modifyProductButton";
-            this.modifyProductButton.Size = new System.Drawing.Size(56, 22);
-            this.modifyProductButton.TabIndex = 13;
-            this.modifyProductButton.Text = "Modify";
-            this.modifyProductButton.UseVisualStyleBackColor = true;
-            this.modifyProductButton.Click += new System.EventHandler(this.ModifyProductButton_Click);
+            this.partNameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.partNameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.partNameDataGridViewTextBoxColumn.Name = "partNameDataGridViewTextBoxColumn";
             // 
-            // deleteProductButton
+            // partPriceDataGridViewTextBoxColumn
             // 
-            this.deleteProductButton.Location = new System.Drawing.Point(966, 310);
-            this.deleteProductButton.Name = "deleteProductButton";
-            this.deleteProductButton.Size = new System.Drawing.Size(56, 22);
-            this.deleteProductButton.TabIndex = 14;
-            this.deleteProductButton.Text = "Delete";
-            this.deleteProductButton.UseVisualStyleBackColor = true;
-            this.deleteProductButton.Click += new System.EventHandler(this.DeleteProductButton_Click);
+            this.partPriceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            this.partPriceDataGridViewTextBoxColumn.HeaderText = "Price";
+            this.partPriceDataGridViewTextBoxColumn.Name = "partPriceDataGridViewTextBoxColumn";
             // 
-            // exitMainFormButton
+            // partInStockDataGridViewTextBoxColumn
             // 
-            this.exitMainFormButton.Location = new System.Drawing.Point(966, 338);
-            this.exitMainFormButton.Name = "exitMainFormButton";
-            this.exitMainFormButton.Size = new System.Drawing.Size(56, 22);
-            this.exitMainFormButton.TabIndex = 15;
-            this.exitMainFormButton.Text = "Exit";
-            this.exitMainFormButton.UseVisualStyleBackColor = true;
-            this.exitMainFormButton.Click += new System.EventHandler(this.ExitMainFormButton_Click);
+            this.partInStockDataGridViewTextBoxColumn.DataPropertyName = "Inventory";
+            this.partInStockDataGridViewTextBoxColumn.HeaderText = "Inventory";
+            this.partInStockDataGridViewTextBoxColumn.Name = "partInStockDataGridViewTextBoxColumn";
+            // 
+            // partMinDataGridViewTextBoxColumn
+            // 
+            this.partMinDataGridViewTextBoxColumn.DataPropertyName = "Min";
+            this.partMinDataGridViewTextBoxColumn.HeaderText = "Min";
+            this.partMinDataGridViewTextBoxColumn.Name = "partMinDataGridViewTextBoxColumn";
+            // 
+            // partMaxDataGridViewTextBoxColumn
+            // 
+            this.partMaxDataGridViewTextBoxColumn.DataPropertyName = "Max";
+            this.partMaxDataGridViewTextBoxColumn.HeaderText = "Max";
+            this.partMaxDataGridViewTextBoxColumn.Name = "partMaxDataGridViewTextBoxColumn";
+            // 
+            // partBindingSource
+            // 
+            this.partBindingSource.DataSource = typeof(Ashton_Wray_C968.Part);
             // 
             // inventoryBindingSource
             // 
@@ -376,9 +378,9 @@
             this.Name = "MainForm";
             this.Text = "Main Form";
             ((System.ComponentModel.ISupportInitialize)(this.partGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.partBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSouce)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.partBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inHouseBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outsourcedBindingSource)).EndInit();

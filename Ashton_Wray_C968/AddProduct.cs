@@ -122,33 +122,10 @@ namespace Ashton_Wray_C968
                 return;
             }
 
-            // if statement to check if the inventory is a valid number and within maximum range
+            // Inventory validation: check if the inventory is a valid number and within maximum range
             if (!int.TryParse(addProductInventoryTextBox.Text, out int inventory) || inventory < 0 || inventory > MAX_INVENTORY)
             {
                 MessageBox.Show("Inventory cannot exceed " + MAX_INVENTORY.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Check if Max is within the maximum range
-            if (!int.TryParse(addProductMaxTextBox.Text, out int max) || max > MAX_MAX)
-            {
-                string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
-                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Check to see if Min is less than Max
-            if (!int.TryParse(addProductMinTextBox.Text, out int min) || min > max)
-            {
-                string errorMessage = "Your minimum exceeds your maximum. Please try again.";
-                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Check if inventory is greater than Max or less than Min
-            if (inventory > int.Parse(addProductMaxTextBox.Text) || inventory < int.Parse(addProductMinTextBox.Text))
-            {
-                MessageBox.Show("Inventory cannot be greater than Max or less than Min", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -156,6 +133,29 @@ namespace Ashton_Wray_C968
             if (!decimal.TryParse(addProductPriceTextBox.Text, out decimal price) || price < 0 || price > MAX_PRICE)
             {
                 MessageBox.Show("Price cannot exceed " + MAX_PRICE.ToString("C") + " and must be a valid decimal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validate if Max is within the maximum range
+            if (!int.TryParse(addProductMaxTextBox.Text, out int max) || max > MAX_MAX)
+            {
+                string errorMessage = "Maximum cannot exceed " + MAX_MAX.ToString();
+                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validate if Min is less than Max
+            if (!int.TryParse(addProductMinTextBox.Text, out int min) || min > max)
+            {
+                string errorMessage = "Your minimum exceeds your maximum. Please try again.";
+                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validate if inventory is greater than Max or less than Min
+            if (inventory > int.Parse(addProductMaxTextBox.Text) || inventory < int.Parse(addProductMinTextBox.Text))
+            {
+                MessageBox.Show("Inventory cannot be greater than Max or less than Min", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -184,7 +184,7 @@ namespace Ashton_Wray_C968
                 }
                 catch (System.Exception)
                 {
-
+                    MessageBox.Show("Product could not be added. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -232,7 +232,6 @@ namespace Ashton_Wray_C968
             }
 
         }
-
 
         // This method is used to validate the input for the AddProductMinTextBox is a digit
         private void AddProductMinTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -286,9 +285,14 @@ namespace Ashton_Wray_C968
 
         }
 
-        private void CandidateBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void AddCandidateBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             addProductCandidateGridView.ClearSelection();
+        }
+
+        private void AddAssociatedBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            addProductAssociatedPartsGridView.ClearSelection();
         }
     }
 }

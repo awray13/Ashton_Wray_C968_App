@@ -93,7 +93,7 @@
             this.addProductCandidateGridView.Size = new System.Drawing.Size(500, 162);
             this.addProductCandidateGridView.TabIndex = 3;
             this.addProductCandidateGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AddProductCandidateGridView_CellContentClick);
-            this.addProductCandidateGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.CandidateBindingComplete);
+            this.addProductCandidateGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.AddCandidateBindingComplete);
             // 
             // addProductAssociatedPartsGridView
             // 
@@ -106,6 +106,7 @@
             this.addProductAssociatedPartsGridView.Size = new System.Drawing.Size(500, 162);
             this.addProductAssociatedPartsGridView.TabIndex = 4;
             this.addProductAssociatedPartsGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AddProductAssociatedPartsGridView_CellContentClick);
+            this.addProductAssociatedPartsGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.AddAssociatedBindingComplete);
             // 
             // addProductIdLabel
             // 

@@ -146,23 +146,40 @@ namespace Ashton_Wray_C968
                 MessageBox.Show("All fields are required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // if statement to check if the add product form is valid
-            if (int.Parse(modProductMinTextBox.Text) > int.Parse(modProductMaxTextBox.Text))
+
+            // Inventory validation: Check if the Inventory is a valid number and within maximum range
+            if (!int.TryParse(modProductInventoryTextBox.Text, out int inventory) || inventory < 0 || inventory > MAX_INVENTORY)
             {
-                MessageBox.Show("Min must be less than Max.");
+                MessageBox.Show("Inventory cannot exceed " + MAX_INVENTORY.ToString() + ".", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // if statement to check if the inventory is between the min and max
-            if (int.Parse(modProductInventoryTextBox.Text) < int.Parse(modProductMinTextBox.Text) ||
-                int.Parse(modProductInventoryTextBox.Text) > int.Parse(modProductMaxTextBox.Text))
+
+            // Price validation: Check if Price is a decimal and within maximum range
+            if (!decimal.TryParse(modProductPriceTextBox.Text, out decimal price) || price < 0 || price > MAX_PRICE)
             {
-                MessageBox.Show("Inventory must be between Min and Max.");
+                MessageBox.Show("Price cannot exceed " + MAX_PRICE.ToString("C") + " and must be a valid decimal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // if statement to check if price is a decimal
-            if (!decimal.TryParse(modProductPriceTextBox.Text, out decimal price))
+
+            // Validate if Max is within the maximum range
+            if (!int.TryParse(modProductMaxTextBox.Text, out int max) || max > MAX_MAX)
             {
-                MessageBox.Show("Price must be a decimal.");
+                MessageBox.Show("Max cannot exceed " + MAX_MAX.ToString() + ".", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validate if Min is less than Max
+            if (!int.TryParse(modProductMinTextBox.Text, out int min) || min > max)
+            {
+                string errorMessage = "Your minimum exceeds your maximum. Please try again.";
+                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validate if Inventory is greater than Max or less than Min
+            if (inventory > max || inventory < min)
+            {
+                MessageBox.Show("Inventory cannot be greater than Max or less than Min", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -180,7 +197,7 @@ namespace Ashton_Wray_C968
                 }
                 catch (System.Exception)
                 {
-                    MessageBox.Show("An error occurred.");
+                    MessageBox.Show("Product could not be updated. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -233,6 +250,11 @@ namespace Ashton_Wray_C968
                 e.Handled = true;
             }
 
+        }
+
+        private void ModCandidateBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            modProductCandidateGridView.ClearSelection();
         }
     }
 }

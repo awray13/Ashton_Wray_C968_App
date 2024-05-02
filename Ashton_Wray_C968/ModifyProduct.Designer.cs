@@ -234,6 +234,7 @@
             this.modProductCandidateGridView.RowHeadersVisible = false;
             this.modProductCandidateGridView.Size = new System.Drawing.Size(500, 162);
             this.modProductCandidateGridView.TabIndex = 26;
+            this.modProductCandidateGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.ModCandidateBindingComplete);
             // 
             // modProductAssociatedPartsLabel
             // 
